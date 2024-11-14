@@ -10,8 +10,6 @@ DEFAULT_HIGHT = 500
 TILE_SIZE = 64
 
 
-#PlayerData
-playerStats = {"currentHealth":100}
 
 
 #map 
