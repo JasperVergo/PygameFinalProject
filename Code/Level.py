@@ -8,7 +8,10 @@ class Level():
     def __init__(self):
         pass
 
-    def create_Map():
+    def create_Map(map : list) -> None:
+        """loads several maps from csv files and makes tile objects with them"""
+
+
         for row in MAP:
             for col in row:
                 if col == "1":

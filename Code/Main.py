@@ -16,8 +16,10 @@ def main():
     #Creating the map
     level = Level.Level()
     
+    #game loop 
     while not exit: 
         for event in pygame.event.get(): 
+            #cleans up after closing the program 
             if event.type == pygame.QUIT: 
                 exit = True
         #updates the display

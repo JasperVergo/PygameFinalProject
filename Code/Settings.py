@@ -9,10 +9,13 @@ DEFAULT_HIGHT = 500
 #Tile info 
 TILE_SIZE = 64
 
+#player stats 
 
 
 
-#map 
+
+
+#temperary map for testing   
 MAP = [
        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
        [0,0,1,1,1,1,1,1,1,1,0,1,1,1,0],
