@@ -1,6 +1,9 @@
 class Player:
     def __init__(self):
-        pass
+        self.current_health = 100
+        self.max_health = 100
+        self.speed = 100
+
 
 
     def get_Current_State():
@@ -9,3 +12,9 @@ class Player:
 
     def update():
         """updates the players, stunning commintary IK"""
+        
+
+    def move():
+        """Moves the player"""
+
+    

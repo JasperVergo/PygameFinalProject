@@ -23,6 +23,7 @@ def main():
             if event.type == pygame.QUIT: 
                 exit = True
         #updates the display
+        level.update()
         pygame.display.update() 
         clock.tick(FPS)
 
