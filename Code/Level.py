@@ -18,7 +18,7 @@ class Level():
                     Tile.Tile((col * TILE_SIZE) + TILE_SIZE // 2,(row * TILE_SIZE) + TILE_SIZE // 2,None)
                 elif col == "0":
                     Tile.Tile((col * TILE_SIZE) + TILE_SIZE // 2,(row * TILE_SIZE) + TILE_SIZE // 2,None)
-                
+    #fghfdd            
 
 
     def update():
