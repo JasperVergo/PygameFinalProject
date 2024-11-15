@@ -11,10 +11,11 @@ def main():
     canvas = pygame.display.set_mode((DEFAULT_WIDTH, DEFAULT_HIGHT)) 
     clock = pygame.time.Clock()
     pygame.display.set_caption("Mini RPG") 
-    exit = False
+    exit = False    
 
     #Creating the map
     level = Level.Level()
+    level.create_Map(MAP)
     
     #game loop 
     while not exit: 
