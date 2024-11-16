@@ -10,7 +10,7 @@ class Player(Enity):
         self.speed = 10 #the move speed of the player
 
         #Temp visual for 
-        self.image = import_folder("Graphics\\Test\\rock.png")
+        self.image = import_folder("graphics\walk_anim\\frame_1.png")
         self.rect = self.image.get_rect(center = pos)
         self.hitbox = self.rect.inflate(-6,-32)
 

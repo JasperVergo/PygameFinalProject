@@ -10,7 +10,7 @@ class Level():
 
     def __init__(self):
 
-        ########------Groups------################
+        ########------Groups------#########
         
         #groups are collections of Sprites that can have actions done to them all at once like drawing them.
         #sprites can be assined to multiple groups
@@ -58,6 +58,7 @@ class Level():
 
     def update(self):
         """This is where all things that should be updated every frame """
+        self.display_serfice.fill("black")
         self.player.update()
         #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see 
         self.visible_Sprites.draw(self.display_serfice) #draws the visible sprite group to the screen so we can see it. 
@@ -66,4 +67,6 @@ class Level():
     def delete_Map(self):
         """removes all the tiles from a map and clears the groups"""
         pass
+
+
 
