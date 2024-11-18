@@ -19,7 +19,7 @@ class Player(Enity):
         self.image = self.graphics.get(self.status)[0]
         self.rect = self.image.get_rect(center = pos)
         self.hitbox = self.rect #makes the player hitbox, TODO: inflate the hitbox by a negitive number to make it harder to get stuck
-
+        self.flipped = False
 
 
     def get_Current_State(self):
@@ -41,10 +41,13 @@ class Player(Enity):
         keydown = pygame.key.get_pressed()
 
         #sets direction of horzantal movment 
+        #TODO: flip h when switching directions horizanaly 
         if keydown[pygame.K_a]:
             self.direction.x = -1
+            self.flipped = True
         elif keydown[pygame.K_d]:
             self.direction.x = 1
+            self.flipped = False
         else:
             self.direction.x = 0
         
@@ -57,9 +60,11 @@ class Player(Enity):
         #if the next frame exsists 
         if self.frame_Index + 1 < len(self.graphics.get(self.status)):
             self.frame_Index += 1
-            self.image = self.graphics.get(self.status)[self.frame_Index]
         else:
             self.frame_Index = 0 #resets the frame 
+            
+        self.image = pygame.transform.flip(self.graphics.get(self.status)[self.frame_Index],self.flipped,False)
+        
                 
         
         
@@ -71,7 +76,7 @@ class Player(Enity):
         """contains all the code that should be run for the player every frame"""
         self.input()
 
-        #triggers next frame every 20 frames, to increase animation speed decrease this number 
+        #triggers next frame every 8 frames, to increase animation speed decrease this number 
         if self.current_frame % 8 == 0:
             self.animate()
 
