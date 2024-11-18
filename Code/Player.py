@@ -50,12 +50,14 @@ class Player(Enity):
 
 
     def animate(self):
-        self.get_Current_State()
+        """updates the frame of the animation based on the status. the animation frames are retrived from the self.graphics variable"""
+        self.get_Current_State() #updates the current state 
+        #if the next frame exsists 
         if self.frame_Index + 1 < len(self.graphics.get(self.status)):
             self.frame_Index += 1
             self.image = self.graphics.get(self.status)[self.frame_Index]
         else:
-            self.frame_Index = 0
+            self.frame_Index = 0 #resets the frame 
                 
         
         
@@ -66,11 +68,12 @@ class Player(Enity):
     def update(self):
         """contains all the code that should be run for the player every frame"""
         self.input()
-        self.elapsed = pygame.time.get_ticks() - self.elapsed
-        if self.elapsed > 1600:
-            print(self.elapsed, pygame.time.get_ticks())
+        #gets the current game tick 
+        self.elapsed = pygame.time.get_ticks()
+        #triggers next frame every 20 ticks, to increase animation speed decrease this number 
+        if self.elapsed % 20 == 0:
             self.animate()
 
-        self.move(self.speed)
+        self.move(self.speed) #this method is in the entity class
 
     

@@ -58,9 +58,10 @@ class Level():
 
     def update(self):
         """This is where all things that should be updated every frame """
-        self.display_serfice.fill("black")
+        self.display_serfice.fill("black") #fills the screen with black to reset the sreen every frame 
         self.player.update()
         #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see 
+        #TODO: custom draw with camera offset
         self.visible_Sprites.draw(self.display_serfice) #draws the visible sprite group to the screen so we can see it. 
 
     
