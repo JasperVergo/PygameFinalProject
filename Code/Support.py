@@ -1,5 +1,6 @@
 import pygame
 from os import walk
+from Settings import TILE_SIZE
 
 
 def import_folder(path):
@@ -9,8 +10,9 @@ def import_folder(path):
     filenames = next(walk(path), (None, None, []))[2] #code snipit from https://stackoverflow.com/questions/3207219/how-do-i-list-all-files-of-a-directory
     for filename in filenames:
         filePath = path + "/" + filename #makes the file path
-        #TODO: force tile size 
-        surface.append(pygame.image.load(filePath).convert_alpha()) #loads and appends the image found by walk
+        image = pygame.image.load(filePath).convert_alpha()
+        image = pygame.transform.scale(image, (TILE_SIZE,TILE_SIZE))
+        surface.append(image) #loads and appends the image found by walk
     #returns a list of pygame image object, this is used as a surfice when displaying things
     return surface
 

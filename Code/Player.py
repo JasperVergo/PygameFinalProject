@@ -70,12 +70,13 @@ class Player(Enity):
     def update(self):
         """contains all the code that should be run for the player every frame"""
         self.input()
-        #gets the current game tick 
-        self.elapsed = pygame.time.get_ticks()
-        #triggers next frame every 20 ticks, to increase animation speed decrease this number 
-        if self.elapsed % 20 == 0:
+
+        #triggers next frame every 20 frames, to increase animation speed decrease this number 
+        if self.current_frame % 8 == 0:
             self.animate()
 
         self.move(self.speed) #this method is in the entity class
+
+        self.current_frame += 1
 
     

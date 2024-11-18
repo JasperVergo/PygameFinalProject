@@ -11,6 +11,8 @@ class Enity(pygame.sprite.Sprite):
         self.current_Health = 100
         self.max_Health = 100
 
+
+        self.current_frame = 0 #count of the frames that this has been active 
         self.frame_Index = 0 #used from animations
 
         #a Vector2 is a set of two numbers ex. (0,4) representing x and y. 
