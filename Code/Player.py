@@ -54,24 +54,6 @@ class Player(Enity):
         #TODO: Gravity and jumping 
 
 
-    def animate(self):
-        """updates the frame of the animation based on the status. the animation frames are retrived from the self.graphics variable"""
-        self.get_Current_State() #updates the current state 
-        #if the next frame exsists 
-        if self.frame_Index + 1 < len(self.graphics.get(self.status)):
-            self.frame_Index += 1
-        else:
-            self.frame_Index = 0 #resets the frame 
-            
-        self.image = pygame.transform.flip(self.graphics.get(self.status)[self.frame_Index],self.flipped,False)
-        
-                
-        
-        
-        
-        
-
-
     def update(self):
         """contains all the code that should be run for the player every frame"""
         self.input()

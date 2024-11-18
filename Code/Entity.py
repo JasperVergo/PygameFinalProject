@@ -35,6 +35,19 @@ class Enity(pygame.sprite.Sprite):
         self.hitbox.y += self.direction.y * speed 
         #updates the rest of the enity to follow the hitbox 
         self.rect.center = self.hitbox.center
+        
+    def animate(self):
+        """updates the frame of the animation based on the status. the animation frames are retrived from the self.graphics variable"""
+        self.get_Current_State() #updates the current state 
+        #if the next frame exsists 
+        if self.frame_Index + 1 < len(self.graphics.get(self.status)):
+            self.frame_Index += 1
+        else:
+            self.frame_Index = 0 #resets the frame 
+        
+        #gets the players current frame from self.graphics and flips it if nessissary based on the flipped varible 
+        self.image = pygame.transform.flip(self.graphics.get(self.status)[self.frame_Index],self.flipped,False)
+
 
     def collition():
         """Handles collition for the enity"""
