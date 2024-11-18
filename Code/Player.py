@@ -10,6 +10,7 @@ class Player(Enity):
         self.speed = 10 #the move speed of the player
 
         #visuals 
+        #TODO: fix player size to be TILE_SIZE
         self.graphics = {
             "side_walk": import_folder("graphics\walk_anim")
         }
@@ -33,7 +34,8 @@ class Player(Enity):
 
 
     def input(self):
-
+        """manages player keypresses"""
+        
         #gets all the keys that are currently being pressed, 
         #this is how we are checking key presses rather than with the event bus
         keydown = pygame.key.get_pressed()
