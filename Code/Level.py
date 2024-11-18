@@ -37,7 +37,7 @@ class Level():
 
         #graphics holds the pygame surfaces for each sprite Tile
         graphics = {
-            "rock":import_folder("Graphics\Test\\rock.png")
+            "rock":import_folder("Graphics\Test")
         }
 
         #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
@@ -46,7 +46,7 @@ class Level():
             for col_Index, col in enumerate(row):
                 #TODO: add a switch statement to allow different maps to be loaded differently 
                 if col == 1:
-                    surf = graphics.get("rock")
+                    surf = graphics.get("rock")[0]
                     #this is for testing purposes only
                     Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],surf)  
                 elif col == "P": 

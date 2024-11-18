@@ -1,6 +1,5 @@
 
 
-
 #Screen settings 
 FPS = 60
 DEFAULT_WIDTH = 1920
@@ -10,6 +9,7 @@ DEFAULT_HIGHT = 1080
 TILE_SIZE = 64
 
 #player stats 
+ANIMATION_SPEED = 1000 #Animation speed where 1000 is once per second 
 
 
 
