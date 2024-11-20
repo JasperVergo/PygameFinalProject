@@ -48,6 +48,9 @@ class Enity(pygame.sprite.Sprite):
         #gets the players current frame from self.graphics and flips it if nessissary based on the flipped varible 
         self.image = pygame.transform.flip(self.graphics.get(self.status)[self.frame_Index],self.flipped,False)
 
+    def is_falling(self):
+        """returns true if the player is falling"""
+        pass
 
     def collition():
         """Handles collition for the enity"""

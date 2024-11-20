@@ -1,6 +1,7 @@
 import pygame
 from os import walk
 from Settings import TILE_SIZE
+import csv
 
 
 def import_folder(path):
@@ -19,5 +20,6 @@ def import_folder(path):
 def import_CSV_file(path):
     """Imports a csv file as a 2d array where the rows are the rows of the csv file"""
     #TODO: all of it 
-
+    with open(path,"r") as mapLayer:
+        pass
 

@@ -10,7 +10,7 @@ def main():
     #CREATING THE CANVAS 
     canvas = pygame.display.set_mode((DEFAULT_WIDTH, DEFAULT_HIGHT)) 
     clock = pygame.time.Clock()
-    pygame.display.set_caption("Mini RPG") 
+    pygame.display.set_caption("Escape the slimgeon") 
     exit = False    
 
     #Creating the map

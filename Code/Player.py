@@ -17,7 +17,7 @@ class Player(Enity):
         self.status = "side_walk"
         self.elapsed = pygame.time.get_ticks()
         self.image = self.graphics.get(self.status)[0]
-        self.rect = self.image.get_rect(center = pos)
+        self.rect = self.image.get_rect(topleft = pos)
         self.hitbox = self.rect #makes the player hitbox, TODO: inflate the hitbox by a negitive number to make it harder to get stuck
         self.flipped = False
 
