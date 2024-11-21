@@ -21,7 +21,6 @@ class Player(Enity):
         self.hitbox = self.rect #makes the player hitbox, TODO: inflate the hitbox by a negitive number to make it harder to get stuck
         self.flipped = False
 
-
     def get_Current_State(self):
         '''
         finds the current state to determine the animation that should be played. 
