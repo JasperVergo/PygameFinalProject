@@ -3,7 +3,7 @@ import pygame
 
 class Enity(pygame.sprite.Sprite):
 
-    def __init__(self,groups):
+    def __init__(self,groups,collition_sprites):
         super().__init__(groups)
         #TODO: The healh values should be taken from a database 
         #max health and current health are needed to insure that even if the player heals they won't go over the maximum health
@@ -22,6 +22,8 @@ class Enity(pygame.sprite.Sprite):
         #once set call the move() method with the speed of the entity 
         self.direction = pygame.math.Vector2()
 
+        self.collition_Sprites = collition_sprites
+
     def move(self, speed):
         "Universal move funtion for all enities"
 
@@ -32,7 +34,9 @@ class Enity(pygame.sprite.Sprite):
         
         #moves the entity based on the direction 
         self.hitbox.x += self.direction.x * speed
+        self.collition("horizantal")
         self.hitbox.y += self.direction.y * speed 
+        self.collition("verdical")
         #updates the rest of the enity to follow the hitbox 
         self.rect.center = self.hitbox.center
         
@@ -52,7 +56,21 @@ class Enity(pygame.sprite.Sprite):
         """returns true if the player is falling"""
         pass
 
-    def collition():
-        """Handles collition for the enity"""
-        #TODO: Add collition, it should take in groups that the enity can not go through 
-        pass
+    def collition(self,direction):
+        """Handles collition for the enity""" 
+        if direction == "horizantal":
+            for sprite in self.collition_Sprites:
+                print("horizantal Collide")
+                if sprite.hitbox.colliderect(self.hitbox):   
+                    if self.direction.x < 0:
+                        self.hitbox.left = sprite.hitbox.right
+                    if self.direction.x > 0:
+                        self.hitbox.right = self.hitbox.left
+        if direction == "verdical":
+            for sprite in self.collition_Sprites:
+                print("verdical collide")
+                if sprite.hitbox.colliderect(self.hitbox):
+                    if self.direction.y < 0:
+                        self.hitbox.bottom = sprite.hitbox.bottom
+                    if self.direction.y > 0:
+                        self.hitbox.top = sprite.hitbox.top
