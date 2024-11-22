@@ -1,5 +1,3 @@
-
-
 #Screen settings 
 FPS = 60
 DEFAULT_WIDTH = 1920

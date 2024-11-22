@@ -58,17 +58,31 @@ class Enity(pygame.sprite.Sprite):
 
     def collition(self,direction):
         """Handles collition for the enity""" 
+        #basic consepts taken from this tutorial: https://www.youtube.com/watch?v=QU1pPzEGrqw
+
+        #handles horizantal collition
         if direction == "horizantal":
+            #checks each collition sprite
             for sprite in self.collition_Sprites:
+                #checks if there was a collition anywhere
                 if sprite.hitbox.colliderect(self.hitbox):   
+                    #this would mean that the entity is moving to the left
                     if self.direction.x < 0:
+                        #if the entity dose collide move the left face of the entity hitbox
+                        #  to the right side of the sprite it collided with 
                         self.hitbox.left = sprite.hitbox.right
+                    #this would mean that the entity is moving to the right
                     if self.direction.x > 0:
+                        #if the entity dose collide move the right face of the entity hitbox
+                        #  to the left side of the sprite it collided with 
                         self.hitbox.right = self.hitbox.left
+        #this handles collition for verdical movement
+        #NOTE This is not tested
         if direction == "verdical":
             for sprite in self.collition_Sprites:
+                #checks if there was a collition anywhere
                 if sprite.hitbox.colliderect(self.hitbox):
                     if self.direction.y < 0:
-                        self.hitbox.bottom = sprite.hitbox.bottom
+                        self.hitbox.bottom = sprite.hitbox.top
                     if self.direction.y > 0:
-                        self.hitbox.top = sprite.hitbox.top
+                        self.hitbox.top = sprite.hitbox.bottom

@@ -11,7 +11,6 @@ class Player(Enity):
         self.speed = 10 #the move speed of the player
 
         #visuals 
-        #TODO: fix player size to be TILE_SIZE
         self.graphics = {
             "side_walk": import_folder("graphics\Player\side_walk"),
             "side_idle": import_folder("graphics\Player\side_idle")
@@ -31,6 +30,7 @@ class Player(Enity):
         the string should also line up with the file locations so that for exsample up_walk is in the directory player/up/walk
         the left and right sides are done by flipping the player sprite
         '''
+        #this is a temperary solution it will porbably need to be rewritten when more states exsist
         if self.direction.x != 0:
             self.status = "side_walk"
         else:
@@ -45,7 +45,6 @@ class Player(Enity):
         keydown = pygame.key.get_pressed()
 
         #sets direction of horzantal movment 
-        #TODO: flip h when switching directions horizanaly 
         if keydown[pygame.K_a]:
             self.direction.x = -1
             self.flipped = True
