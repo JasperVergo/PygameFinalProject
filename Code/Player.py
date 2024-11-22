@@ -4,8 +4,8 @@ from Settings import *
 from Support import *
 
 class Player(Enity):
-    def __init__(self,groups,pos):
-        super().__init__(groups)
+    def __init__(self,groups,pos,collition_sprites):
+        super().__init__(groups,collition_sprites)
         #TODO: this should be taken from some kind of stats dictionary in settings rather than being hard coded here 
         self.speed = 10 #the move speed of the player
 
@@ -20,7 +20,6 @@ class Player(Enity):
         self.rect = self.image.get_rect(topleft = pos)
         self.hitbox = self.rect #makes the player hitbox, TODO: inflate the hitbox by a negitive number to make it harder to get stuck
         self.flipped = False
-
 
     def get_Current_State(self):
         '''

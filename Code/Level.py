@@ -29,6 +29,11 @@ class Level():
         #get display surfice. a display surfice is what pygame draws things to
         self.display_serfice = pygame.display.get_surface()
 
+
+        self.half_width = self.display_serfice.get_size()[0] // 2
+        self.half_hight = self.display_serfice.get_size()[1] // 2
+        self.draw_offset = pygame.math.Vector2()
+
     
 
 
@@ -45,14 +50,15 @@ class Level():
         for row_Index,row in enumerate(map):
             for col_Index, col in enumerate(row):
                 #TODO: add a switch statement to allow different maps to be loaded differently 
+                #TODO:fix the map not spawning at the right starting cords
                 if col == 1:
                     surf = graphics.get("rock")[0]
                     #this is for testing purposes only
-                    Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],surf)  
+                    Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],surf)  
                 elif col == "P": 
                     #loads the player, Note: if no player is pressent the program will currently
                     #  crash due to the update funtion calling it 
-                    self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)))
+                    self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites)
                     
 
 
@@ -61,13 +67,25 @@ class Level():
         self.display_serfice.fill("black") #fills the screen with black to reset the sreen every frame 
         self.player.update()
         #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see 
-        #TODO: custom draw with camera offset
-        self.visible_Sprites.draw(self.display_serfice) #draws the visible sprite group to the screen so we can see it. 
+        self.custom_draw()
 
+    def custom_draw(self):
+        """custom draw to offset the camera based on the players position """
+        
+        self.draw_offset.x = self.player.rect.centerx - self.half_width
+        self.draw_offset.y = self.player.rect.centery - self.half_hight
+
+        for sprite in self.visible_Sprites:
+            offset_pos = sprite.rect.topleft - self.draw_offset
+            self.display_serfice.blit(sprite.image,offset_pos)
+
+            
     
     def delete_Map(self):
         """removes all the tiles from a map and clears the groups"""
         pass
+
+
 
 
 

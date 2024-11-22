@@ -11,4 +11,5 @@ class Tile(pygame.sprite.Sprite):
         self.groups = groups 
         self.image = image
         self.rect = self.image.get_rect(topleft = (x,y))
+        self.hitbox = self.rect
 
