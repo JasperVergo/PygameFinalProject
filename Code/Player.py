@@ -2,6 +2,7 @@ import pygame
 from Entity import Enity
 from Settings import *
 from Support import *
+import math
 
 class Player(Enity):
     def __init__(self,groups,pos,collition_sprites):
@@ -12,7 +13,8 @@ class Player(Enity):
         #visuals 
         #TODO: fix player size to be TILE_SIZE
         self.graphics = {
-            "side_walk": import_folder("graphics\walk_anim")
+            "side_walk": import_folder("graphics\Player\side_walk"),
+            "side_idle": import_folder("graphics\Player\side_idle")
         }
         self.status = "side_walk"
         self.elapsed = pygame.time.get_ticks()
@@ -29,7 +31,10 @@ class Player(Enity):
         the string should also line up with the file locations so that for exsample up_walk is in the directory player/up/walk
         the left and right sides are done by flipping the player sprite
         '''
-        pass
+        if self.direction.x != 0:
+            self.status = "side_walk"
+        else:
+            self.status = "side_idle"
 
 
     def input(self):
