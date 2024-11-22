@@ -60,7 +60,6 @@ class Enity(pygame.sprite.Sprite):
         """Handles collition for the enity""" 
         if direction == "horizantal":
             for sprite in self.collition_Sprites:
-                print("horizantal Collide")
                 if sprite.hitbox.colliderect(self.hitbox):   
                     if self.direction.x < 0:
                         self.hitbox.left = sprite.hitbox.right
@@ -68,7 +67,6 @@ class Enity(pygame.sprite.Sprite):
                         self.hitbox.right = self.hitbox.left
         if direction == "verdical":
             for sprite in self.collition_Sprites:
-                print("verdical collide")
                 if sprite.hitbox.colliderect(self.hitbox):
                     if self.direction.y < 0:
                         self.hitbox.bottom = sprite.hitbox.bottom
