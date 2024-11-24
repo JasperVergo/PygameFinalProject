@@ -9,7 +9,6 @@ class Player(Enity):
         super().__init__(groups,collition_sprites)
         #TODO: this should be taken from some kind of stats dictionary in settings rather than being hard coded here 
         self.speed = 10 #the move speed of the player
-
         #visuals 
         self.graphics = {
             "side_walk": import_folder("graphics\Player\side_walk"),

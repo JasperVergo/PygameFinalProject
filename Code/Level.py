@@ -83,7 +83,10 @@ class Level():
     
     def delete_Map(self):
         """removes all the tiles from a map and clears the groups"""
-        pass
+        self.visible_Sprites.empty()
+        self.collition_Sprites.empty()
+        self.event_Sprites.empty()
+        del self.player
 
 
 
