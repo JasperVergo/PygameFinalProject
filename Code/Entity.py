@@ -58,8 +58,7 @@ class Enity(pygame.sprite.Sprite):
 
     def collition(self,direction):
         """Handles collition for the enity""" 
-        #basic consepts taken from this tutorial: https://www.youtube.com/watch?v=QU1pPzEGrqw
-
+        #basic consepts taken from this tutorial: https://www.youtube.com/watch?v=QU1pPzEGrqw   
         #handles horizantal collition
         if direction == "horizantal":
             #checks each collition sprite
