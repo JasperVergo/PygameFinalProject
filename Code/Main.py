@@ -14,11 +14,11 @@ def main():
     exit = False    
 
     #Creating the map
-    level = Level.Level()
+    level = Level.Level()   
     level.create_Map(MAP)
     
     #game loop 
-    while not exit: 
+    while not exit:     
         for event in pygame.event.get(): 
             #cleans up after closing the program 
             if event.type == pygame.QUIT: 

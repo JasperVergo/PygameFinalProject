@@ -12,14 +12,21 @@ class Player(Enity):
         #visuals 
         self.graphics = {
             "side_walk": import_folder("graphics\Player\side_walk"),
-            "side_idle": import_folder("graphics\Player\side_idle")
+            "side_idle": import_folder("graphics\Player\side_idle"),
+            "hurt": import_folder("graphics\Player\hurt_anim"),
+            "jump": import_folder("graphics\Player\jump_anim"),
+            "side_dash" : import_folder("graphics\Player\side_dash_anim"),
+            "up_dash" : import_folder("graphics\Player\\up_dash_anim")
         }
         self.status = "side_walk"
         self.elapsed = pygame.time.get_ticks()
         self.image = self.graphics.get(self.status)[0]
         self.rect = self.image.get_rect(topleft = pos)
-        self.hitbox = self.rect #makes the player hitbox, TODO: inflate the hitbox by a negitive number to make it harder to get stuck
+        self.hitbox = self.rect.inflate(-40,-20) #makes the player hitbox, TODO: inflate the hitbox by a negitive number to make it harder to get stuck
         self.flipped = False
+        self.is_jumping = False
+        self.is_dashing = False
+        self.jumpVelocity = -6
 
     def get_Current_State(self):
         '''
@@ -35,6 +42,11 @@ class Player(Enity):
         else:
             self.status = "side_idle"
 
+    def jump(self):
+        if not self.is_falling():
+            self.velocity.y = self.jumpVelocity
+            self.direction.y = 1
+            print("jump")
 
     def input(self):
         """manages player keypresses"""
@@ -52,6 +64,9 @@ class Player(Enity):
             self.flipped = False
         else:
             self.direction.x = 0
+
+        if keydown[pygame.K_SPACE]:
+            self.jump()
         
         #TODO: Gravity and jumping 
 

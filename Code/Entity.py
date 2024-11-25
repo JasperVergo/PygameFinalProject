@@ -1,4 +1,5 @@
 import pygame
+from Settings import TILE_SIZE
 
 
 class Enity(pygame.sprite.Sprite):
@@ -23,23 +24,108 @@ class Enity(pygame.sprite.Sprite):
         self.direction = pygame.math.Vector2()
 
         self.collition_Sprites = collition_sprites
+        self.collition_tolorance = 5
+
+        self.gravity = .1 #gravity speed
+        self.max_gravity_speed = 4
+        self.velocity = pygame.Vector2(0,0)
+        
+
 
     def move(self, speed):
         "Universal move funtion for all enities"
 
         #checks the length of the vector. if the vector is 0 the entity is still. 
         # normilizing a vector with a magnatude of 0 throws a error
-        if self.direction.magnitude() != 0: 
-            self.direction.normalize() #makes the magnatude of the vector 1 to prevent increased speed on dyagnols 
+        #if self.direction.magnitude() != 0: 
+        #    self.direction.normalize() #makes the magnatude of the vector 1 to prevent increased speed on dyagnols 
         
         #moves the entity based on the direction 
-        self.hitbox.x += self.direction.x * speed
+        self.velocity.x = self.direction.x * speed
+
+        if self.is_falling():
+            self.velocity.y += self.gravity
+            if self.velocity.y > self.max_gravity_speed:
+                self.velocity.y = self.max_gravity_speed
+            else:
+                self.direction.y = -1
+        elif self.velocity.y > 0 :
+            self.velocity.y = 0
+            self.direction.y = 0
+
+
+        #print(self.velocity,self.is_falling())
+
+
+
+
+        self.hitbox.x += self.velocity.x
         self.collition("horizantal")
-        self.hitbox.y += self.direction.y * speed 
+
+        self.hitbox.y += self.velocity.y
         self.collition("verdical")
+
+
         #updates the rest of the enity to follow the hitbox 
+
         self.rect.center = self.hitbox.center
         
+
+    def collition(self,direction):
+        """Handles collition for the enity""" 
+        #handles horizantal collition
+
+        if direction == "horizantal":
+            for sprite in self.collition_Sprites:
+                topleft = self.check_topleft_collition(sprite)
+                topright = self.check_topright_collition(sprite)
+                bottomright = self.check_bottomright_collition(sprite)
+                bottomleft = self.check_bottomleft_collition(sprite) 
+
+                if topleft or bottomleft:
+                    self.hitbox.left = sprite.hitbox.right
+
+                elif topright or bottomright:
+                    self.hitbox.right = sprite.hitbox.left             
+
+        if direction == "verdical":
+            for sprite in self.collition_Sprites:
+                topleft = self.check_topleft_collition(sprite)
+                topright = self.check_topright_collition(sprite)
+                bottomright = self.check_bottomright_collition(sprite)
+                bottomleft = self.check_bottomleft_collition(sprite)
+            
+            if topleft or topright:
+                self.hitbox.top = sprite.hitbox.bottom
+
+            elif bottomleft or bottomright:
+                self.hitbox.bottom = sprite.hitbox.top
+
+    def check_Left_collition(self,sprite):
+        return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left-self.collition_tolorance)
+    
+    def check_right_collition(self, sprite):
+        return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left-self.collition_tolorance)
+    
+    def check_bottom_collition(self,sprite):
+        return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.bottom+self.collition_tolorance)
+    
+    def check_top_collition(self,sprite):
+        return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.top-self.collition_tolorance)
+
+    def check_topleft_collition(self,sprite):
+        return sprite.hitbox.collidepoint(self.hitbox.topleft)
+    
+    def check_topright_collition(self,sprite):
+        return sprite.hitbox.collidepoint(self.hitbox.topright)
+    
+    def check_bottomleft_collition(self,sprite):
+        return sprite.hitbox.collidepoint(self.hitbox.bottomleft)
+    
+    def check_bottomright_collition(self,sprite):
+        return sprite.hitbox.collidepoint(self.hitbox.bottomright)
+    
+
     def animate(self):
         """updates the frame of the animation based on the status. the animation frames are retrived from the self.graphics variable"""
         self.get_Current_State() #updates the current state 
@@ -54,34 +140,7 @@ class Enity(pygame.sprite.Sprite):
 
     def is_falling(self):
         """returns true if the player is falling"""
-        pass
-
-    def collition(self,direction):
-        """Handles collition for the enity""" 
-        #basic consepts taken from this tutorial: https://www.youtube.com/watch?v=QU1pPzEGrqw   
-        #handles horizantal collition
-        if direction == "horizantal":
-            #checks each collition sprite
-            for sprite in self.collition_Sprites:
-                #checks if there was a collition anywhere
-                if sprite.hitbox.colliderect(self.hitbox):   
-                    #this would mean that the entity is moving to the left
-                    if self.direction.x < 0:
-                        #if the entity dose collide move the left face of the entity hitbox
-                        #  to the right side of the sprite it collided with 
-                        self.hitbox.left = sprite.hitbox.right
-                    #this would mean that the entity is moving to the right
-                    if self.direction.x > 0:
-                        #if the entity dose collide move the right face of the entity hitbox
-                        #  to the left side of the sprite it collided with 
-                        self.hitbox.right = self.hitbox.left
-        #this handles collition for verdical movement
-        #NOTE This is not tested
-        if direction == "verdical":
-            for sprite in self.collition_Sprites:
-                #checks if there was a collition anywhere
-                if sprite.hitbox.colliderect(self.hitbox):
-                    if self.direction.y < 0:
-                        self.hitbox.bottom = sprite.hitbox.top
-                    if self.direction.y > 0:
-                        self.hitbox.top = sprite.hitbox.bottom
+        for sprite in self.collition_Sprites:
+            if sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.bottom+self.collition_tolorance + 1):
+                 return False
+        return True            
