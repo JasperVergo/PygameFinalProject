@@ -6,9 +6,10 @@ import math
 
 class Player(Enity):
     def __init__(self,groups,pos,collition_sprites):
-        super().__init__(groups,collition_sprites)
+        super().__init__(groups,collition_sprites,player_Base_Stats["maxHealth"])
         #TODO: this should be taken from some kind of stats dictionary in settings rather than being hard coded here 
-        self.speed = 10 #the move speed of the player
+        #TODO: orginize this init 
+        self.speed = player_Base_Stats["speed"] #the move speed of the player
         #visuals 
         self.graphics = {
             "side_walk": import_folder("graphics\Player\side_walk"),
@@ -16,17 +17,20 @@ class Player(Enity):
             "hurt": import_folder("graphics\Player\hurt_anim"),
             "jump": import_folder("graphics\Player\jump_anim"),
             "side_dash" : import_folder("graphics\Player\side_dash_anim"),
-            "up_dash" : import_folder("graphics\Player\\up_dash_anim")
+            "up_dash" : import_folder("graphics\Player\\up_dash_anim"),
+            "fall" : import_folder("graphics\Player\\fall_anim")
         }
+        self.holdAnimations = ["jump","side_dash","up_dash","fall"]
         self.status = "side_walk"
         self.elapsed = pygame.time.get_ticks()
         self.image = self.graphics.get(self.status)[0]
         self.rect = self.image.get_rect(topleft = pos)
-        self.hitbox = self.rect.inflate(-40,-20) #makes the player hitbox, TODO: inflate the hitbox by a negitive number to make it harder to get stuck
+        self.hitbox = self.rect.inflate(-30,-40) #makes the player hitbox
         self.flipped = False
         self.is_jumping = False
         self.is_dashing = False
-        self.jumpVelocity = -6
+        self.falling = False
+        self.jumpVelocity = player_Base_Stats["jumpVelocity"]
 
     def get_Current_State(self):
         '''
@@ -37,16 +41,31 @@ class Player(Enity):
         the left and right sides are done by flipping the player sprite
         '''
         #this is a temperary solution it will porbably need to be rewritten when more states exsist
+        old_status = self.status
+
         if self.direction.x != 0:
             self.status = "side_walk"
         else:
             self.status = "side_idle"
 
+        if self.is_jumping:
+            self.status = "jump"
+        if not self.is_falling():
+            self.is_jumping = False
+        
+        elif self.velocity.y > 0:
+            self.status = "fall"
+
+        if self.status != old_status:
+            self.frame_Index = 0
+        
+
     def jump(self):
         if not self.is_falling():
             self.velocity.y = self.jumpVelocity
             self.direction.y = 1
-            print("jump")
+            self.is_jumping = True
+        
 
     def input(self):
         """manages player keypresses"""
@@ -68,7 +87,6 @@ class Player(Enity):
         if keydown[pygame.K_SPACE]:
             self.jump()
         
-        #TODO: Gravity and jumping 
 
 
     def update(self):
