@@ -43,6 +43,7 @@ class Level():
         #graphics holds the pygame surfaces for each sprite Tile
         graphics = {
             "rock":import_folder("Graphics\Test")
+            
         }
 
         #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
