@@ -34,7 +34,6 @@ class Level():
         self.half_hight = self.display_serfice.get_size()[1] // 2
         self.draw_offset = pygame.math.Vector2()
 
-    
 
 
     def create_Map(self,map : list) -> None:
