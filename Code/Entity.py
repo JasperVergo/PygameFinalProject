@@ -4,13 +4,13 @@ from Settings import TILE_SIZE
 
 class Enity(pygame.sprite.Sprite):
 
-    def __init__(self,groups,collition_sprites):
+    def __init__(self,groups,collition_sprites,max_Health):
         super().__init__(groups)
         #TODO: The healh values should be taken from a database 
         #max health and current health are needed to insure that even if the player heals they won't go over the maximum health
         #it is also used for the health bars ratios
-        self.current_Health = 100
-        self.max_Health = 100
+        self.current_Health = max_Health
+        self.max_Health = max_Health
 
 
         self.current_frame = 0 #count of the frames that this has been active 
@@ -26,7 +26,7 @@ class Enity(pygame.sprite.Sprite):
         self.collition_Sprites = collition_sprites
         self.collition_tolorance = 5
 
-        self.gravity = .1 #gravity speed
+        self.gravity = .4 #gravity speed
         self.max_gravity_speed = 4
         self.velocity = pygame.Vector2(0,0)
         
@@ -57,13 +57,13 @@ class Enity(pygame.sprite.Sprite):
         #print(self.velocity,self.is_falling())
 
 
-
+        self.hitbox.y += self.velocity.y
+        self.collition("verdical")
 
         self.hitbox.x += self.velocity.x
         self.collition("horizantal")
 
-        self.hitbox.y += self.velocity.y
-        self.collition("verdical")
+
 
 
         #updates the rest of the enity to follow the hitbox 
@@ -74,7 +74,7 @@ class Enity(pygame.sprite.Sprite):
     def collition(self,direction):
         """Handles collition for the enity""" 
         #handles horizantal collition
-
+        #TODO: upword collition is so broken
         if direction == "horizantal":
             for sprite in self.collition_Sprites:
                 topleft = self.check_topleft_collition(sprite)
@@ -132,7 +132,8 @@ class Enity(pygame.sprite.Sprite):
         #if the next frame exsists 
         if self.frame_Index + 1 < len(self.graphics.get(self.status)):
             self.frame_Index += 1
-        else:
+        
+        elif self.status not in self.holdAnimations:
             self.frame_Index = 0 #resets the frame 
         
         #gets the players current frame from self.graphics and flips it if nessissary based on the flipped varible 

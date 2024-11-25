@@ -8,7 +8,11 @@ TILE_SIZE = 64
 
 #player stats 
 ANIMATION_SPEED = 1000 #Animation speed where 1000 is once per second 
-
+player_Base_Stats = {
+    "maxHealth":100,
+    "speed":10,
+    "jumpVelocity":-10
+}
 
 
 
