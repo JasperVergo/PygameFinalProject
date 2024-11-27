@@ -73,8 +73,7 @@ class Enity(pygame.sprite.Sprite):
 
     def collition(self,direction):
         """Handles collition for the enity""" 
-        #handles horizantal collition
-        #TODO: upword collition is so broken
+        #don't ask me to explain this it has caused me to much pain
         if direction == "horizantal":
             for sprite in self.collition_Sprites:
                 topleft = self.check_topleft_collition(sprite)
