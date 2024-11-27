@@ -40,9 +40,36 @@ class Level():
         """loads several maps from csv files and makes tile objects with them"""
 
         #graphics holds the pygame surfaces for each sprite Tile
-        graphics = {
-            "rock":import_folder("Graphics\Test")
-            
+        graphics = {           
+            "rock":import_folder("Graphics\Test"),
+            "platform_2":import_folder("graphics\tileset\floating_platform"),
+            "platform_3":import_folder("graphics\tileset\floating_platform"),
+            "platform_end_left":import_folder("graphics\tileset\floating_platform"),
+            "platform_end_right":import_folder("graphics\tileset\floating_platform"),
+            "platform":import_folder("graphics\tileset\floating_platform"),
+            "floor_1":import_folder("graphics\tileset\floor"),
+            "floor_2":import_folder("graphics\tileset\floor"),
+            "floor_3":import_folder("graphics\tileset\floor"),
+            "floor_void":import_folder("graphics\tileset\floor"),
+            "floor_up_corner_left":import_folder("graphics\tileset\floor_up"),
+            "floor_up_corner_right":import_folder("graphics\tileset\floor_up"),
+            "floor_up_left":import_folder("graphics\tileset\floor_up"),
+            "floor_up_right":import_folder("graphics\tileset\floor_up"),
+            "floor_up_trans_left":import_folder("graphics\tileset\floor_up"),
+            "floor_up_trans_right":import_folder("graphics\tileset\floor_up"),
+            "floor_up2_trans":import_folder("graphics\tileset\floor_up"),
+            "roof_1":import_folder("graphics\tileset\roof"),
+            "roof_2":import_folder("graphics\tileset\roof"),
+            "roof_3":import_folder("graphics\tileset\roof"),
+            "roof_void":import_folder("graphics\tileset\roof"),
+            "wall_floor_corner":import_folder("graphics\tileset\transitions"),
+            "wall_floor_void":import_folder("graphics\tileset\transitions"),
+            "wall_roof_corner":import_folder("graphics\tileset\transitions"),
+            "wall_roof_void":import_folder("graphics\tileset\transitions"),
+            "wall_1":import_folder("graphics\tileset\wall"),
+            "wall_2":import_folder("graphics\tileset\wall"),
+            "wall_3":import_folder("graphics\tileset\wall"),
+            "wall_void":import_folder("graphics\tileset\wall"),
         }
 
         #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
