@@ -97,6 +97,7 @@ class Enity(pygame.sprite.Sprite):
             
                 if topleft or topright:
                     self.hitbox.top = sprite.hitbox.bottom + self.collition_tolorance
+                    self.velocity.y = 0
 
                 elif bottomleft or bottomright:
                     self.hitbox.bottom = sprite.hitbox.top - self.collition_tolorance
@@ -142,6 +143,6 @@ class Enity(pygame.sprite.Sprite):
     def is_falling(self):
         """returns true if the player is falling"""
         for sprite in self.collition_Sprites:
-            if sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.bottom+self.collition_tolorance + 1):
+            if sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.bottom+self.collition_tolorance + 1) or sprite.hitbox.collidepoint(self.hitbox.bottomleft[0],self.hitbox.bottomleft[1] + 1) or sprite.hitbox.collidepoint(self.hitbox.bottomright[0],self.hitbox.bottomright[1] + 1):
                  return False
         return True            
