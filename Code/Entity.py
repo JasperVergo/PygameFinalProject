@@ -6,7 +6,6 @@ class Enity(pygame.sprite.Sprite):
 
     def __init__(self,groups,collition_sprites,max_Health):
         super().__init__(groups)
-        #TODO: The healh values should be taken from a database 
         #max health and current health are needed to insure that even if the player heals they won't go over the maximum health
         #it is also used for the health bars ratios
         self.current_Health = max_Health
@@ -57,12 +56,13 @@ class Enity(pygame.sprite.Sprite):
         #print(self.velocity,self.is_falling())
 
 
-        self.hitbox.y += self.velocity.y
-        self.collition("verdical")
+
 
         self.hitbox.x += self.velocity.x
         self.collition("horizantal")
 
+        self.hitbox.y += self.velocity.y
+        self.collition("verdical")
 
 
 
@@ -83,10 +83,10 @@ class Enity(pygame.sprite.Sprite):
                 bottomleft = self.check_bottomleft_collition(sprite)
 
                 if topleft or bottomleft:
-                    self.hitbox.left = sprite.hitbox.right
+                    self.hitbox.left = sprite.hitbox.right + self.collition_tolorance
 
                 elif topright or bottomright:
-                    self.hitbox.right = sprite.hitbox.left      
+                    self.hitbox.right = sprite.hitbox.left - self.collition_tolorance   
 
         if direction == "verdical":
             for sprite in self.collition_Sprites:
@@ -96,10 +96,10 @@ class Enity(pygame.sprite.Sprite):
                 bottomleft = self.check_bottomleft_collition(sprite)
             
                 if topleft or topright:
-                    self.hitbox.top = sprite.hitbox.bottom
+                    self.hitbox.top = sprite.hitbox.bottom + self.collition_tolorance
 
                 elif bottomleft or bottomright:
-                    self.hitbox.bottom = sprite.hitbox.top 
+                    self.hitbox.bottom = sprite.hitbox.top - self.collition_tolorance
 
     def check_Left_collition(self,sprite):
         return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left-self.collition_tolorance)
