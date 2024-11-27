@@ -80,13 +80,13 @@ class Enity(pygame.sprite.Sprite):
                 topleft = self.check_topleft_collition(sprite)
                 topright = self.check_topright_collition(sprite)
                 bottomright = self.check_bottomright_collition(sprite)
-                bottomleft = self.check_bottomleft_collition(sprite) 
+                bottomleft = self.check_bottomleft_collition(sprite)
 
                 if topleft or bottomleft:
                     self.hitbox.left = sprite.hitbox.right
 
                 elif topright or bottomright:
-                    self.hitbox.right = sprite.hitbox.left             
+                    self.hitbox.right = sprite.hitbox.left      
 
         if direction == "verdical":
             for sprite in self.collition_Sprites:
@@ -95,11 +95,11 @@ class Enity(pygame.sprite.Sprite):
                 bottomright = self.check_bottomright_collition(sprite)
                 bottomleft = self.check_bottomleft_collition(sprite)
             
-            if topleft or topright:
-                self.hitbox.top = sprite.hitbox.bottom
+                if topleft or topright:
+                    self.hitbox.top = sprite.hitbox.bottom
 
-            elif bottomleft or bottomright:
-                self.hitbox.bottom = sprite.hitbox.top
+                elif bottomleft or bottomright:
+                    self.hitbox.bottom = sprite.hitbox.top 
 
     def check_Left_collition(self,sprite):
         return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left-self.collition_tolorance)
