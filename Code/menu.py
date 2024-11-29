@@ -1,23 +1,21 @@
 import pygame
 import sys
 
-# Initialize Pygame
 pygame.init()
 
-# Game Window Settings
+#game window settings
 SCREEN_WIDTH = 1080
 SCREEN_HEIGHT = 720
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Escape the Slimgeon")
 
-# Load Background Image
-background = pygame.image.load('Start_screen.png')  # Replace with your background image file
+#load background image
+background = pygame.image.load('Start_screen.png')  
 
-# Load Button Images
-start_img = pygame.image.load('Start.png').convert_alpha()  # Replace with your start button image
-quit_img = pygame.image.load('Quit.png').convert_alpha()  # Replace with your exit button image
+#load button images
+start_img = pygame.image.load('START.png').convert_alpha()  
+quit_img = pygame.image.load('Quit.png').convert_alpha()  
 
-# Button Class Definition
 class Button():
     def __init__(self, x, y, image, scale):
         width = image.get_width()
@@ -30,54 +28,54 @@ class Button():
         screen.blit(self.image, (self.rect.x, self.rect.y))
 
     def is_hovered(self):
-        # Check if the mouse is hovering over the button
+        #check if the mouse is hovering over the button
         mouse_x, mouse_y = pygame.mouse.get_pos()
         if self.rect.collidepoint(mouse_x, mouse_y):
             return True
         return False
 
     def is_clicked(self):
-        # Check if the mouse is clicked on the button
+        #check if the mouse is clicked on the button
         if self.is_hovered() and pygame.mouse.get_pressed()[0]:  # Left click (0 is the left mouse button)
             return True
         return False
 
-# Create Buttons
+#create buttons
 start_button = Button(100, 456, start_img, 0.5)
 quit_button = Button(235, 300, quit_img, 0.5)
 
-# Game Loop
+#game loop
 run = True
 while run:
-    # Handle Events
+    #handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
 
-    # Draw Background
+    #draw background
     screen.blit(background, (0, 0))
 
-    # Draw Buttons
+    #draw buttons
     start_button.draw()
     quit_button.draw()
 
-    # Check for Button Clicks
+    #check for button clicks
     if start_button.is_clicked():
         print("Start Button Clicked")
-        # Add code to start the game (e.g., change to game scene or call a function)
+
     if quit_button.is_clicked():
         print("Exit Button Clicked")
         run = False
 
-    # Handle Hover Effect
+    #handle Hover Effect
     if start_button.is_hovered():
         pygame.draw.rect(screen, (255, 255, 255), start_button.rect, 3)  # Add a border on hover (white outline)
     if quit_button.is_hovered():
         pygame.draw.rect(screen, (255, 255, 255), quit_button.rect, 3)  # Add a border on hover (white outline)
 
-    # Update the Screen
+    #update the Screen
     pygame.display.update()
 
-# Quit the Game
+#quit the Game
 pygame.quit()
 sys.exit()
