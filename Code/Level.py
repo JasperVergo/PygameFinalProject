@@ -51,7 +51,6 @@ class Level():
         for row_Index,row in enumerate(map):
             for col_Index, col in enumerate(row):
                 #TODO: add a switch statement to allow different maps to be loaded differently 
-                #TODO:fix the map not spawning at the right starting cords
                 if col == 1:
                     surf = graphics.get("rock")[0]
                     #this is for testing purposes only
