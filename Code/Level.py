@@ -34,6 +34,7 @@ class Level():
         self.half_hight = self.display_serfice.get_size()[1] // 2
         self.draw_offset = pygame.math.Vector2()
 
+    
 
 
     def create_Map(self,map : list) -> None:
@@ -42,55 +43,70 @@ class Level():
         #graphics holds the pygame surfaces for each sprite Tile
         graphics = {           
             "rock":import_folder("Graphics\Test"),
-            "platform_2":import_folder("graphics\tileset\floating_platform"),
-            "platform_3":import_folder("graphics\tileset\floating_platform"),
-            "platform_end_left":import_folder("graphics\tileset\floating_platform"),
-            "platform_end_right":import_folder("graphics\tileset\floating_platform"),
-            "platform":import_folder("graphics\tileset\floating_platform"),
-            "floor_1":import_folder("graphics\tileset\floor"),
-            "floor_2":import_folder("graphics\tileset\floor"),
-            "floor_3":import_folder("graphics\tileset\floor"),
-            "floor_void":import_folder("graphics\tileset\floor"),
-            "floor_up_corner_left":import_folder("graphics\tileset\floor_up"),
-            "floor_up_corner_right":import_folder("graphics\tileset\floor_up"),
-            "floor_up_left":import_folder("graphics\tileset\floor_up"),
-            "floor_up_right":import_folder("graphics\tileset\floor_up"),
-            "floor_up_trans_left":import_folder("graphics\tileset\floor_up"),
-            "floor_up_trans_right":import_folder("graphics\tileset\floor_up"),
-            "floor_up2_trans":import_folder("graphics\tileset\floor_up"),
-            "roof_1":import_folder("graphics\tileset\roof"),
-            "roof_2":import_folder("graphics\tileset\roof"),
-            "roof_3":import_folder("graphics\tileset\roof"),
-            "roof_void":import_folder("graphics\tileset\roof"),
-            "wall_floor_corner":import_folder("graphics\tileset\transitions"),
-            "wall_floor_void":import_folder("graphics\tileset\transitions"),
-            "wall_roof_corner":import_folder("graphics\tileset\transitions"),
-            "wall_roof_void":import_folder("graphics\tileset\transitions"),
-            "wall_1":import_folder("graphics\tileset\wall"),
-            "wall_2":import_folder("graphics\tileset\wall"),
-            "wall_3":import_folder("graphics\tileset\wall"),
-            "wall_void":import_folder("graphics\tileset\wall"),
+            "1":import_folder("graphics\\tileset\\floating_platform\\platform_2"),
+            "2":import_folder("graphics\\tileset\\floating_platform\\platform_3"),
+            "3":import_folder("graphics\\tileset\\floating_platform\\platform_end_left"),
+            "4":import_folder("graphics\\tileset\\floating_platform\\platform_end_right"),
+            "0":import_folder("graphics\\tileset\\floating_platform\\platform"),
+            "5":import_folder("graphics\\tileset\\floor\\floor_1"),
+            "6":import_folder("graphics\\tileset\\floor\\floor_2"),
+            "7":import_folder("graphics\\tileset\\floor\\floor_3"),
+            "8":import_folder("graphics\\tileset\\floor\\floor_void"),
+            "9":import_folder("graphics\\tileset\\floor_up\\floor_up_corner_left"),
+            "10":import_folder("graphics\\tileset\\floor_up\\floor_up_corner_right"),
+            "11":import_folder("graphics\\tileset\\floor_up\\floor_up_left"),
+            "12":import_folder("graphics\\tileset\\floor_up\\floor_up_right"),
+            "13":import_folder("graphics\\tileset\\floor_up\\floor_up_trans_left"),
+            "14":import_folder("graphics\\tileset\\floor_up\\floor_up_trans_right"),
+            "15":import_folder("graphics\\tileset\\floor_up\\floor_up2_trans"),
+            "16":import_folder("graphics\\tileset\\roof\\roof_1"),
+            "17":import_folder("graphics\\tileset\\roof\\roof_2"),
+            "18":import_folder("graphics\\tileset\\roof\\roof_3"),
+            "19":import_folder("graphics\\tileset\\roof\\roof_void"),
+            "20":import_folder("graphics\\tileset\\transitions\\wall_floor_corner"),
+            "21":import_folder("graphics\\tileset\\transitions\\wall_floor_void"),
+            "22":import_folder("graphics\\tileset\\transitions\\wall_roof_corner"),
+            "23":import_folder("graphics\\tileset\\transitions\\wall_roof_void"),
+            "24":import_folder("graphics\\tileset\\wall\\wall_1"),
+            "25":import_folder("graphics\\tileset\\wall\\wall_2"),
+            "26":import_folder("graphics\\tileset\\wall\\wall_3"),
+            "27":import_folder("graphics\\tileset\\wall\\wall_void"),
+            "28":import_folder("graphics\\spikes\\spikes"),
+            "29":import_folder("graphics\spikes\spikes_2"),
+            "30":import_folder("graphics\\tileset\\transitions\\wall_floor_corner_flipped"),
+            "31":import_folder("graphics\\tileset\\transitions\\wall_roof_corner_flipped"),
+            "32":import_folder("graphics\\tileset\wall\\wall_3_flipped"),
+            "33":import_folder("graphics\\tileset\wall\\wall_1_flipped"),
+            "34":import_folder("graphics\\tileset\wall\\wall_2_flipped")
         }
 
         #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
         #calulating where it should be spawned based on the TILE_SIZE varible in Settings.py
         #TODO: add a switch statement to allow different maps to be loaded differently 
 
-        for layer in maps:
+        for layer in map:
             for row_Index,row in enumerate(import_CSV_file(layer)):
+                print(row)
                 for col_Index, col in enumerate(row):
-                    if col == 1:
-                        surf = graphics.get("rock")[0]
-                        #this is for testing purposes only
-                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],surf)  
-                    elif col == "P": 
+
+
+                    if col == "35": 
                         #loads the player, Note: if no player is pressent the program will currently
                         #  crash due to the update funtion calling it 
                         self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites)
+                    elif col in ["8","19","23","27","28","29"]: # sprites without collision
+                        surf = graphics.get(col)
+                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],surf)
+                    elif col in graphics:
+                        surf = graphics.get(col)
+                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],surf)
+                    elif col != "-1":
+                        raise Exception(col)
+
         if self.player == None:
             self.player = Player(self.visible_Sprites,((DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 2)),self.collition_Sprites)            
 
-
+    
     def update(self):
         """This is where all things that should be updated every frame """
         self.display_serfice.fill("black") #fills the screen with black to reset the sreen every frame 

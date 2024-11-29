@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.0" name="Slimegeon" tilewidth="16" tileheight="16" tilecount="35" columns="0">
+<tileset version="1.10" tiledversion="1.11.0" name="Slimegeon" tilewidth="20" tileheight="20" tilecount="36" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image source="../tileset/floating_platform/platform.png" width="16" height="16"/>
@@ -105,5 +105,8 @@
  </tile>
  <tile id="34">
   <image source="../tileset/wall/wall_2_flipped.png" width="16" height="16"/>
+ </tile>
+ <tile id="35">
+  <image source="../Player/side_walk/frame_1.png" width="20" height="20"/>
  </tile>
 </tileset>

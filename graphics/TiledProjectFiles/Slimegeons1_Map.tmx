@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.10" tiledversion="1.11.0" orientation="orthogonal" renderorder="left-down" width="30" height="20" tilewidth="16" tileheight="16" infinite="1" nextlayerid="3" nextobjectid="1">
+ <editorsettings>
+  <export target="../../Maps/Objects_test.csv" format="csv"/>
+ </editorsettings>
  <tileset firstgid="1" source="Slimegeon_Tileset.tsx"/>
  <layer id="1" name="Background" width="30" height="20">
   <data encoding="csv">
@@ -46,7 +49,7 @@
    <chunk x="-16" y="0" width="16" height="16">
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,0,0,0,0,0,0,4,1,5,0,0,0,0,0,
+0,0,0,0,0,0,0,0,4,1,5,0,0,36,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,4,2,5,0,
 0,0,0,4,2,3,2,2,2,5,0,0,0,0,0,0,

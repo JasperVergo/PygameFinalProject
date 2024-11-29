@@ -15,7 +15,7 @@ def main():
 
     #Creating the map
     level = Level.Level()   
-    level.create_Map(maps.get("testmap"))
+    level.create_Map(MAPS["testmap"])
     
     #game loop 
     while not exit:     

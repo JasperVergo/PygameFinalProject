@@ -25,8 +25,8 @@ class Enity(pygame.sprite.Sprite):
         self.collition_Sprites = collition_sprites
         self.collition_tolorance = 5
 
-        self.gravity = .4 #gravity speed
-        self.max_gravity_speed = 4
+        self.gravity = 1 #gravity speed
+        self.max_gravity_speed = 8
         self.velocity = pygame.Vector2(0,0)
         
 

@@ -11,11 +11,11 @@ ANIMATION_SPEED = 1000 #Animation speed where 1000 is once per second
 player_Base_Stats = {
     "maxHealth":100,
     "speed":10,
-    "jumpVelocity":-10
+    "jumpVelocity":-20
 }
 
 
-maps = {
+MAPS = {
     "testmap":["Maps\Objects_test_Background.csv","Maps\Objects_test_Objects.csv"]
 }
 

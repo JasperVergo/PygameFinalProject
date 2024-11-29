@@ -18,13 +18,15 @@ def import_folder(path):
             surface.append(image) #loads and appends the image found by walk
         #returns a list of pygame image object, this is used as a surfice when displaying things
     else:
-        return osPath.join(*(path + ".png").split("\\")) 
+        image = pygame.image.load(osPath.join(*(path + ".png").split("\\"))).convert_alpha()
+        image = pygame.transform.scale(image, (TILE_SIZE,TILE_SIZE))
+        return image
     return surface
 
 def import_CSV_file(path):
     """Imports a csv file as a 2d array where the rows are the rows of the csv file"""
     #TODO: all of it 
-    with open(osPath.join(*path.split("\\"), path),"r") as mapLayer:
+    with open(osPath.join(*path.split("\\")),"r") as mapLayer:
         reader = csv.reader(mapLayer)
         return list(reader)
 
