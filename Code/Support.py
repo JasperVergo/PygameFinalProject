@@ -24,6 +24,7 @@ def import_folder(path):
 def import_CSV_file(path):
     """Imports a csv file as a 2d array where the rows are the rows of the csv file"""
     #TODO: all of it 
-    with open(path,"r") as mapLayer:
-        pass
+    with open(osPath.join(*path.split("\\"), path),"r") as mapLayer:
+        reader = csv.reader(mapLayer)
+        return list(reader)
 

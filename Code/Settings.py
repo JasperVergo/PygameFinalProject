@@ -15,7 +15,9 @@ player_Base_Stats = {
 }
 
 
-
+maps = {
+    "testmap":["Maps\Objects_test_Background.csv","Maps\Objects_test_Objects.csv"]
+}
 
 #temperary map for testing   
 MAP = [

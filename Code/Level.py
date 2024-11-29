@@ -48,18 +48,21 @@ class Level():
 
         #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
         #calulating where it should be spawned based on the TILE_SIZE varible in Settings.py
-        for row_Index,row in enumerate(map):
-            for col_Index, col in enumerate(row):
-                #TODO: add a switch statement to allow different maps to be loaded differently 
-                if col == 1:
-                    surf = graphics.get("rock")[0]
-                    #this is for testing purposes only
-                    Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],surf)  
-                elif col == "P": 
-                    #loads the player, Note: if no player is pressent the program will currently
-                    #  crash due to the update funtion calling it 
-                    self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites)
-                    
+        #TODO: add a switch statement to allow different maps to be loaded differently 
+
+        for layer in maps:
+            for row_Index,row in enumerate(import_CSV_file(layer)):
+                for col_Index, col in enumerate(row):
+                    if col == 1:
+                        surf = graphics.get("rock")[0]
+                        #this is for testing purposes only
+                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],surf)  
+                    elif col == "P": 
+                        #loads the player, Note: if no player is pressent the program will currently
+                        #  crash due to the update funtion calling it 
+                        self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites)
+        if self.player == None:
+            self.player = Player(self.visible_Sprites,((DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 2)),self.collition_Sprites)            
 
 
     def update(self):
