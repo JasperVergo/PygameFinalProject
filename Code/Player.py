@@ -28,9 +28,10 @@ class Player(Enity):
         self.hitbox = self.rect.inflate(-30,-40) #makes the player hitbox
         self.flipped = False
         self.is_jumping = False
-        self.is_dashing = False
+        self.can_dash = True
         self.falling = False
         self.jumpVelocity = player_Base_Stats["jumpVelocity"]
+        self.dashVelocity = player_Base_Stats["dashVelocity"]
 
     def get_Current_State(self):
         '''
@@ -65,7 +66,20 @@ class Player(Enity):
             self.velocity.y = self.jumpVelocity
             self.direction.y = 1
             self.is_jumping = True
-        
+
+    def dash(self):
+        if self.can_dash:
+            print("dash")
+            self.can_dash = False
+            if self.direction.magnitude() != 0:
+                self.velocity = self.direction.normalize() * self.dashVelocity
+            else:
+                self.velocity.x = self.dashVelocity
+                self.velocity.y = -1
+
+    def on_Ground_hit(self):
+        super().on_Ground_hit()
+        self.can_dash = True
 
     def input(self):
         """manages player keypresses"""
@@ -86,6 +100,9 @@ class Player(Enity):
 
         if keydown[pygame.K_SPACE]:
             self.jump()
+        
+        elif keydown[pygame.K_f]:
+            self.dash()
         
 
 
