@@ -26,8 +26,10 @@ class Enity(pygame.sprite.Sprite):
         self.collition_tolorance = 5
 
         self.gravity = 1 #gravity speed
+        self.is_gravity_active = True
         self.max_gravity_speed = 8
         self.velocity = pygame.Vector2(0,0)
+        self.drag = .01
         
 
 
@@ -40,20 +42,28 @@ class Enity(pygame.sprite.Sprite):
         #    self.direction.normalize() #makes the magnatude of the vector 1 to prevent increased speed on dyagnols 
         
         #moves the entity based on the direction 
+        
         self.velocity.x = self.direction.x * speed
 
-        if self.is_falling():
-            self.velocity.y += self.gravity
-            if self.velocity.y > self.max_gravity_speed:
-                self.velocity.y = self.max_gravity_speed
-            else:
-                self.direction.y = -1
-        elif self.velocity.y > 0 :
-            self.velocity.y = 0
-            self.direction.y = 0
+        if self.is_gravity_active:
+            if self.is_falling():
+                self.velocity.y += self.gravity
+                if self.velocity.y > self.max_gravity_speed:
+                    self.velocity.y = self.max_gravity_speed
+                else:
+                    self.direction.y = -1
+            elif self.velocity.y > 0 :
+                self.velocity.y = 0
+                self.direction.y = 0
 
+            #apply drag 
+            if round(self.velocity.y) != 0:
+                self.velocity.y = self.velocity.y + self.drag * (self.velocity.y / self.velocity.y)
+            if round(self.velocity.x) != 0:
+                self.velocity.x = self.velocity.x + self.drag * (self.velocity.x / self.velocity.x)
 
         #print(self.velocity,self.is_falling())
+
 
 
 
@@ -80,11 +90,15 @@ class Enity(pygame.sprite.Sprite):
                 topright = self.check_topright_collition(sprite)
                 bottomright = self.check_bottomright_collition(sprite)
                 bottomleft = self.check_bottomleft_collition(sprite)
+                right = self.check_right_collition(sprite)
+                left = self.check_Left_collition(sprite)
+                top = self.check_top_collition(sprite)
+                bottom = self.check_bottom_collition(sprite)
 
-                if topleft or bottomleft:
+                if (topleft or bottomleft) and left:
                     self.hitbox.left = sprite.hitbox.right + self.collition_tolorance
 
-                elif topright or bottomright:
+                elif (topright or bottomright) and right:
                     self.hitbox.right = sprite.hitbox.left - self.collition_tolorance   
 
         if direction == "verdical":
@@ -93,6 +107,7 @@ class Enity(pygame.sprite.Sprite):
                 topright = self.check_topright_collition(sprite)
                 bottomright = self.check_bottomright_collition(sprite)
                 bottomleft = self.check_bottomleft_collition(sprite)
+
             
                 if topleft or topright:
                     self.hitbox.top = sprite.hitbox.bottom + self.collition_tolorance

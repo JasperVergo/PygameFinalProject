@@ -12,7 +12,7 @@ player_Base_Stats = {
     "maxHealth":100,
     "speed":10,
     "jumpVelocity":-20,
-    "dashVelocity": 40,
+    "dashVelocity": 20,
     "dashCooldown":.5
 }
 

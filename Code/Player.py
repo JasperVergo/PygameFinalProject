@@ -7,7 +7,6 @@ import math
 class Player(Enity):
     def __init__(self,groups,pos,collition_sprites):
         super().__init__(groups,collition_sprites,player_Base_Stats["maxHealth"])
-        #TODO: this should be taken from some kind of stats dictionary in settings rather than being hard coded here 
         #TODO: orginize this init 
         self.speed = player_Base_Stats["speed"] #the move speed of the player
         #visuals 
@@ -29,9 +28,13 @@ class Player(Enity):
         self.flipped = False
         self.is_jumping = False
         self.can_dash = True
+        self.is_dashing = False
         self.falling = False
+        self.dash_cool_down = 250 #in ticks
+        self.control_direction = pygame.math.Vector2(0,0)
         self.jumpVelocity = player_Base_Stats["jumpVelocity"]
         self.dashVelocity = player_Base_Stats["dashVelocity"]
+        self.dash_timer = -1
 
     def get_Current_State(self):
         '''
@@ -56,26 +59,40 @@ class Player(Enity):
         
         elif self.velocity.y > 0:
             self.status = "fall"
+        
+        if self.is_dashing:
+            if self.is_falling():
+                self.status = "side_dash"
+            else:
+                self.status = "up_dash"
 
         if self.status != old_status:
             self.frame_Index = 0
         
 
     def jump(self):
-        if not self.is_falling():
+        if not self.is_falling() and not self.is_dashing:
             self.velocity.y = self.jumpVelocity
             self.direction.y = 1
             self.is_jumping = True
 
     def dash(self):
-        if self.can_dash:
+        if self.can_dash and not self.is_dashing:
             print("dash")
             self.can_dash = False
-            if self.direction.magnitude() != 0:
-                self.velocity = self.direction.normalize() * self.dashVelocity
+            self.is_dashing = True
+            self.is_gravity_active = not self.is_falling()
+            self.direction = self.control_direction
+            self.dash_timer = pygame.time.get_ticks()
+            if self.control_direction.magnitude() != 0:
+                self.velocity = self.control_direction.normalize() * self.dashVelocity
             else:
-                self.velocity.x = self.dashVelocity
-                self.velocity.y = -1
+                if self.flipped:
+                    self.velocity.x = self.dashVelocity * -1
+                else: 
+                    self.velocity.x = self.dashVelocity 
+                
+                
 
     def on_Ground_hit(self):
         super().on_Ground_hit()
@@ -91,12 +108,22 @@ class Player(Enity):
         #sets direction of horzantal movment 
         if keydown[pygame.K_a]:
             self.direction.x = -1
+            self.control_direction.x = -1
             self.flipped = True
         elif keydown[pygame.K_d]:
             self.direction.x = 1
+            self.control_direction.x = 1
             self.flipped = False
         else:
             self.direction.x = 0
+            self.control_direction.x = 0
+
+        if keydown[pygame.K_w]:
+            self.control_direction.y = -1
+        elif keydown[pygame.K_s]:
+            self.control_direction.y = 1
+        else:
+            self.control_direction.y = 0
 
         if keydown[pygame.K_SPACE]:
             self.jump()
@@ -105,16 +132,31 @@ class Player(Enity):
             self.dash()
         
 
+    def check_events(self):
+        if self.dash_timer + self.dash_cool_down < pygame.time.get_ticks():
+            self.is_dashing = False
+            self.is_gravity_active = True
+            self.dashVelocity = player_Base_Stats["dashVelocity"]
+    
+
 
     def update(self):
         """contains all the code that should be run for the player every frame"""
-        self.input()
+        if not self.is_dashing:
+            self.input()
 
         #triggers next frame every 8 frames, to increase animation speed decrease this number 
         if self.current_frame % 8 == 0:
             self.animate()
 
-        self.move(self.speed) #this method is in the entity class
+        self.check_events()
+
+        if self.is_dashing:
+            self.move(self.dashVelocity)
+            if self.dashVelocity > 0:
+                self.dashVelocity -= self.drag
+        else:
+            self.move(self.speed) #this method is in the entity class
 
         self.current_frame += 1
 
