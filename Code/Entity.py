@@ -42,7 +42,6 @@ class Enity(pygame.sprite.Sprite):
         #    self.direction.normalize() #makes the magnatude of the vector 1 to prevent increased speed on dyagnols 
         
         #moves the entity based on the direction 
-        
         self.velocity.x = self.direction.x * speed
 
         if self.is_gravity_active:
@@ -95,10 +94,10 @@ class Enity(pygame.sprite.Sprite):
                 top = self.check_top_collition(sprite)
                 bottom = self.check_bottom_collition(sprite)
 
-                if (topleft or bottomleft) and left:
+                if (topleft or bottomleft):
                     self.hitbox.left = sprite.hitbox.right + self.collition_tolorance
 
-                elif (topright or bottomright) and right:
+                elif (topright or bottomright) :
                     self.hitbox.right = sprite.hitbox.left - self.collition_tolorance   
 
         if direction == "verdical":
@@ -107,20 +106,23 @@ class Enity(pygame.sprite.Sprite):
                 topright = self.check_topright_collition(sprite)
                 bottomright = self.check_bottomright_collition(sprite)
                 bottomleft = self.check_bottomleft_collition(sprite)
-
+                right = self.check_right_collition(sprite)
+                left = self.check_Left_collition(sprite)
+                top = self.check_top_collition(sprite)
+                bottom = self.check_bottom_collition(sprite)
             
-                if topleft or topright:
+                if topleft or topright and top:
                     self.hitbox.top = sprite.hitbox.bottom + self.collition_tolorance
                     self.velocity.y = 0
 
-                elif bottomleft or bottomright:
+                elif bottomleft or bottomright and bottom:
                     self.hitbox.bottom = sprite.hitbox.top - self.collition_tolorance
 
     def check_Left_collition(self,sprite):
         return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left-self.collition_tolorance)
     
     def check_right_collition(self, sprite):
-        return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left-self.collition_tolorance)
+        return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left+self.collition_tolorance)
     
     def check_bottom_collition(self,sprite):
         return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.bottom+self.collition_tolorance)

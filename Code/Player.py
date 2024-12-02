@@ -61,10 +61,10 @@ class Player(Enity):
             self.status = "fall"
         
         if self.is_dashing:
-            if self.is_falling():
-                self.status = "side_dash"
-            else:
+            if self.direction.x == 0:
                 self.status = "up_dash"
+            else:
+                self.status = "side_dash"
 
         if self.status != old_status:
             self.frame_Index = 0
@@ -81,14 +81,18 @@ class Player(Enity):
             print("dash")
             self.can_dash = False
             self.is_dashing = True
-            self.is_gravity_active = not self.is_falling()
-            self.direction = self.control_direction
+            self.is_gravity_active = False
+            if self.direction.magnitude() > 0:
+                self.direction = self.control_direction
+            else:
+                self.direction.x = -1 if self.flipped else 1
             self.dash_timer = pygame.time.get_ticks()
-            if self.control_direction.magnitude() != 0:
+            if self.control_direction.magnitude() > 0:
                 self.velocity = self.control_direction.normalize() * self.dashVelocity
+                print(self.velocity)
             else:
                 if self.flipped:
-                    self.velocity.x = self.dashVelocity * -1
+                    self.velocity.x = self.dashVelocity * -1 
                 else: 
                     self.velocity.x = self.dashVelocity 
                 
@@ -104,33 +108,33 @@ class Player(Enity):
         #gets all the keys that are currently being pressed, 
         #this is how we are checking key presses rather than with the event bus
         keydown = pygame.key.get_pressed()
+        if not self.is_dashing:
+            #sets direction of horzantal movment 
+            if keydown[pygame.K_a]:
+                self.direction.x = -1
+                self.control_direction.x = -1
+                self.flipped = True
+            elif keydown[pygame.K_d]:
+                self.direction.x = 1
+                self.control_direction.x = 1
+                self.flipped = False
+            else:
+                self.direction.x = 0
+                self.control_direction.x = 0
 
-        #sets direction of horzantal movment 
-        if keydown[pygame.K_a]:
-            self.direction.x = -1
-            self.control_direction.x = -1
-            self.flipped = True
-        elif keydown[pygame.K_d]:
-            self.direction.x = 1
-            self.control_direction.x = 1
-            self.flipped = False
-        else:
-            self.direction.x = 0
-            self.control_direction.x = 0
+            if keydown[pygame.K_w]:
+                self.control_direction.y = -1
+            elif keydown[pygame.K_s]:
+                self.control_direction.y = 1
+            else:
+                self.control_direction.y = 0
 
-        if keydown[pygame.K_w]:
-            self.control_direction.y = -1
-        elif keydown[pygame.K_s]:
-            self.control_direction.y = 1
-        else:
-            self.control_direction.y = 0
+            if keydown[pygame.K_SPACE]:
+                self.jump()
+            
+            if keydown[pygame.K_f]:
+                self.dash()
 
-        if keydown[pygame.K_SPACE]:
-            self.jump()
-        
-        elif keydown[pygame.K_f]:
-            self.dash()
-        
 
     def check_events(self):
         if self.dash_timer + self.dash_cool_down < pygame.time.get_ticks():
@@ -150,6 +154,7 @@ class Player(Enity):
             self.animate()
 
         self.check_events()
+
 
         if self.is_dashing:
             self.move(self.dashVelocity)
