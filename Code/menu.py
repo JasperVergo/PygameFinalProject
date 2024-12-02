@@ -1,5 +1,6 @@
 import pygame
 import sys
+from Support import *
 
 pygame.init()
 
@@ -10,11 +11,11 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Escape the Slimgeon")
 
 #load background image
-background = pygame.image.load('Start_screen.png')  
+background = import_folder('graphics/screens/Start_screen')
 
 #load button images
-start_img = pygame.image.load('START.png').convert_alpha()  
-quit_img = pygame.image.load('Quit.png').convert_alpha()  
+start_img = import_folder('graphics/buttons/START')
+quit_img = import_folder('graphics/buttons/Quit')
 
 class Button():
     def __init__(self, x, y, image, scale):
