@@ -1,5 +1,6 @@
 import pygame
 from Settings import TILE_SIZE
+from Settings import EVENT_IDS
 
 
 class Enity(pygame.sprite.Sprite):
@@ -95,10 +96,17 @@ class Enity(pygame.sprite.Sprite):
                 bottom = self.check_bottom_collition(sprite)
 
                 if (topleft or bottomleft):
-                    self.hitbox.left = sprite.hitbox.right + self.collition_tolorance
+                    if sprite.id in EVENT_IDS:
+                        pass
+                    else:
+                        self.hitbox.left = sprite.hitbox.right + self.collition_tolorance
+                    
 
                 elif (topright or bottomright) :
-                    self.hitbox.right = sprite.hitbox.left - self.collition_tolorance   
+                    if sprite.id in EVENT_IDS:
+                        pass
+                    else:
+                        self.hitbox.right = sprite.hitbox.left - self.collition_tolorance   
 
         if direction == "verdical":
             for sprite in self.collition_Sprites:
@@ -112,11 +120,17 @@ class Enity(pygame.sprite.Sprite):
                 bottom = self.check_bottom_collition(sprite)
             
                 if topleft or topright and top:
-                    self.hitbox.top = sprite.hitbox.bottom + self.collition_tolorance
-                    self.velocity.y = 0
+                    if sprite.id in EVENT_IDS:
+                        pass
+                    else:
+                        self.hitbox.top = sprite.hitbox.bottom + self.collition_tolorance
+                        self.velocity.y = 0
 
                 elif bottomleft or bottomright and bottom:
-                    self.hitbox.bottom = sprite.hitbox.top - self.collition_tolorance
+                    if sprite.id in EVENT_IDS:
+                        pass
+                    else:
+                        self.hitbox.bottom = sprite.hitbox.top - self.collition_tolorance
 
     def check_Left_collition(self,sprite):
         return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left-self.collition_tolorance)

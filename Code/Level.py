@@ -92,13 +92,13 @@ class Level():
                     if col == "35": 
                         #loads the player, Note: if no player is pressent the program will currently
                         #  crash due to the update funtion calling it 
-                        self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites)
+                        self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,col)
                     elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
                         surf = graphics.get(col)
-                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],surf)
+                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],col,surf)
                     elif col in graphics:
                         surf = graphics.get(col)
-                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],surf)
+                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],col,surf)
                     elif col != "-1":
                         raise Exception(col)
 

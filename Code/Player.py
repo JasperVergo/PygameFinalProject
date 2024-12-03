@@ -5,7 +5,7 @@ from Support import *
 import math
 
 class Player(Enity):
-    def __init__(self,groups,pos,collition_sprites):
+    def __init__(self,groups,pos,collition_sprites,id):
         super().__init__(groups,collition_sprites,player_Base_Stats["maxHealth"])
         #TODO: orginize this init 
         self.speed = player_Base_Stats["speed"] #the move speed of the player
@@ -20,6 +20,7 @@ class Player(Enity):
             "fall" : import_folder("graphics\Player\\fall_anim")
         }
         self.holdAnimations = ["jump","side_dash","up_dash","fall"]
+        self.id = id
         self.status = "side_walk"
         self.elapsed = pygame.time.get_ticks()
         self.image = self.graphics.get(self.status)[0]
