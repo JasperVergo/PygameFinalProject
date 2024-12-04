@@ -81,6 +81,45 @@ class Level():
             "33":import_folder("graphics\\tileset\wall\\wall_1_flipped"),
             "34":import_folder("graphics\\tileset\wall\\wall_2_flipped")
         }
+        #alters the hitbox size for specific tiles
+        inflations = {
+            "rock":(0,0),
+            "1":(28,-15),
+            "2":(28,-15),
+            "3":(0,0),
+            "4":(0,0),
+            "0":(28,-15),
+            "5":(0,0),
+            "6":(0,0),
+            "7":(0,0),
+            "8":(0,0),
+            "9":(0,0),
+            "10":(0,0),
+            "11":(0,0),
+            "12":(0,0),
+            "13":(0,0),
+            "14":(0,0),
+            "15":(0,0),
+            "16":(0,0),
+            "17":(0,0),
+            "18":(0,0),
+            "19":(0,0),
+            "20":(0,0),
+            "21":(0,0),
+            "22":(0,0),
+            "23":(0,0),
+            "24":(0,0),
+            "25":(0,0),
+            "26":(0,0),
+            "27":(0,0),
+            "28":(0,0),
+            "29":(0,0),
+            "30":(0,0),
+            "31":(0,0),
+            "32":(0,0),
+            "33":(0,0),
+            "34":(0,0)
+        }
 
         #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
         #calulating where it should be spawned based on the TILE_SIZE varible in Settings.py
@@ -96,13 +135,13 @@ class Level():
                         self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self)
                     elif col in EVENT_IDS:
                         surf = graphics.get(col)
-                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.event_Sprites],col,surf)
+                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
                     elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
                         surf = graphics.get(col)
-                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],col,surf)
+                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],col,inflations.get(col),surf)
                     elif col in graphics:
                         surf = graphics.get(col)
-                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],col,surf)
+                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],col,inflations.get(col),surf)
                     elif col != "-1":
                         raise Exception(col)
 
