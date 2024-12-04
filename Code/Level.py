@@ -33,13 +33,14 @@ class Level():
         self.half_width = self.display_serfice.get_size()[0] // 2
         self.half_hight = self.display_serfice.get_size()[1] // 2
         self.draw_offset = pygame.math.Vector2()
+        self.current_map = []
 
     
 
 
     def create_Map(self,map : list) -> None:
         """loads several maps from csv files and makes tile objects with them"""
-
+        self.current_map = map
         #graphics holds the pygame surfaces for each sprite Tile
         #TODO: fix this so the hitboxes are right
         graphics = {           
@@ -92,7 +93,10 @@ class Level():
                     if col == "35": 
                         #loads the player, Note: if no player is pressent the program will currently
                         #  crash due to the update funtion calling it 
-                        self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,col)
+                        self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self)
+                    elif col in EVENT_IDS:
+                        surf = graphics.get(col)
+                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.event_Sprites],col,surf)
                     elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
                         surf = graphics.get(col)
                         Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],col,surf)
@@ -132,7 +136,9 @@ class Level():
         self.event_Sprites.empty()
         del self.player
 
-
+    def restart_map(self):
+        self.delete_Map()
+        self.create_Map(self.current_map)
 
 
 
