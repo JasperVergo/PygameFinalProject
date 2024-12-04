@@ -41,6 +41,7 @@ class Level():
         """loads several maps from csv files and makes tile objects with them"""
 
         #graphics holds the pygame surfaces for each sprite Tile
+        #TODO: fix this so the hitboxes are right
         graphics = {           
             "rock":import_folder("Graphics\Test"),
             "1":import_folder("graphics\\tileset\\floating_platform\\platform_2"),
@@ -82,11 +83,9 @@ class Level():
 
         #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
         #calulating where it should be spawned based on the TILE_SIZE varible in Settings.py
-        #TODO: add a switch statement to allow different maps to be loaded differently 
 
         for layer in map:
             for row_Index,row in enumerate(import_CSV_file(layer)):
-                print(row)
                 for col_Index, col in enumerate(row):
 
 
@@ -94,7 +93,7 @@ class Level():
                         #loads the player, Note: if no player is pressent the program will currently
                         #  crash due to the update funtion calling it 
                         self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites)
-                    elif col in ["8","19","23","27","28","29"]: # sprites without collision
+                    elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
                         surf = graphics.get(col)
                         Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],surf)
                     elif col in graphics:
