@@ -12,6 +12,8 @@ pygame.display.set_caption("Escape the Slimgeon")
 
 #load background image
 background = import_folder('graphics/screens/Start_screen')
+background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))  # Scale the background to the screen size
+
 
 #load button images
 start_img = import_folder('graphics/buttons/START')
@@ -42,8 +44,8 @@ class Button():
         return False
 
 #create buttons
-start_button = Button(100, 456, start_img, 0.5)
-quit_button = Button(235, 300, quit_img, 0.5)
+start_button = Button(500, 350, start_img, 1)
+quit_button = Button(500, 450, quit_img, 1)
 
 #game loop
 run = True
