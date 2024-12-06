@@ -131,11 +131,13 @@ class Level():
         }
 
         if map == "Menu":   
-            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Start_screen"))
-            Button.Button(500, 350, "graphics\\buttons\\START", 1,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
-            Button.Button(500, 450, "graphics\\buttons\\Quit", 1,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
+            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Start_screen",True))
+            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
+            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
         elif map == "Restart_Menu":
-            pass
+            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Pause_screen",True))
+            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
+            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
         else:
             #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
             #calulating where it should be spawned based on the TILE_SIZE varible in Settings.py
@@ -149,7 +151,7 @@ class Level():
                             #loads the player, Note: if no player is pressent the program will currently
                             #  crash due to the update funtion calling it 
                             self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self)
-                        elif col in EVENT_IDS:
+                        elif col in EVENT_IDS: 
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
                         elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
