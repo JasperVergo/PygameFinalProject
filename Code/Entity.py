@@ -83,6 +83,7 @@ class Enity(pygame.sprite.Sprite):
     def collition(self,direction):
         """Handles collition for the enity""" 
         #don't ask me to explain this it has caused me to much pain
+        collided_sprites = []
         if direction == "horizantal":
             for sprite in self.collition_Sprites:
                 topleft = self.check_topleft_collition(sprite)
@@ -96,9 +97,11 @@ class Enity(pygame.sprite.Sprite):
 
                 if (topleft or bottomleft):
                     self.hitbox.left = sprite.hitbox.right + self.collition_tolorance
+                    collided_sprites.append(sprite)
 
                 elif (topright or bottomright) :
                     self.hitbox.right = sprite.hitbox.left - self.collition_tolorance   
+                    collided_sprites.append(sprite)
 
         if direction == "verdical":
             for sprite in self.collition_Sprites:
@@ -106,17 +109,18 @@ class Enity(pygame.sprite.Sprite):
                 topright = self.check_topright_collition(sprite)
                 bottomright = self.check_bottomright_collition(sprite)
                 bottomleft = self.check_bottomleft_collition(sprite)
-                right = self.check_right_collition(sprite)
-                left = self.check_Left_collition(sprite)
                 top = self.check_top_collition(sprite)
                 bottom = self.check_bottom_collition(sprite)
             
                 if topleft or topright and top:
                     self.hitbox.top = sprite.hitbox.bottom + self.collition_tolorance
                     self.velocity.y = 0
+                    collided_sprites.append(sprite)
 
                 elif bottomleft or bottomright and bottom:
                     self.hitbox.bottom = sprite.hitbox.top - self.collition_tolorance
+                    collided_sprites.append(sprite)
+        return collided_sprites
 
     def check_Left_collition(self,sprite):
         return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left-self.collition_tolorance)

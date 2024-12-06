@@ -7,6 +7,8 @@ def main():
 
     pygame.init() 
     
+
+    
     #CREATING THE CANVAS 
     canvas = pygame.display.set_mode((DEFAULT_WIDTH, DEFAULT_HIGHT))    
     clock = pygame.time.Clock()

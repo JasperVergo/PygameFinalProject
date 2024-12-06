@@ -5,7 +5,7 @@ from Support import *
 import math
 
 class Player(Enity):
-    def __init__(self,groups,pos,collition_sprites):
+    def __init__(self,groups,pos,collition_sprites,event_sprites,id,level):
         super().__init__(groups,collition_sprites,player_Base_Stats["maxHealth"])
         #TODO: orginize this init 
         self.speed = player_Base_Stats["speed"] #the move speed of the player
@@ -20,6 +20,9 @@ class Player(Enity):
             "fall" : import_folder("graphics\Player\\fall_anim")
         }
         self.holdAnimations = ["jump","side_dash","up_dash","fall"]
+        self.event_sprites = event_sprites
+        self.id = id
+        self.level = level
         self.status = "side_walk"
         self.elapsed = pygame.time.get_ticks()
         self.image = self.graphics.get(self.status)[0]
@@ -101,6 +104,8 @@ class Player(Enity):
     def on_Ground_hit(self):
         super().on_Ground_hit()
         self.can_dash = True
+    
+
 
     def input(self):
         """manages player keypresses"""
@@ -137,11 +142,18 @@ class Player(Enity):
 
 
     def check_events(self):
+        #dash timer
         if self.dash_timer + self.dash_cool_down < pygame.time.get_ticks():
             self.is_dashing = False
             self.is_gravity_active = True
             self.dashVelocity = player_Base_Stats["dashVelocity"]
-    
+
+        #event tiles
+        for event in self.event_sprites:
+            if self.hitbox.colliderect(event.hitbox):
+                #triggers each event
+                if EVENT_IDS.get(event.id) == "restart":
+                    self.level.restart_map()
 
 
     def update(self):

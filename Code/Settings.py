@@ -21,6 +21,11 @@ MAPS = {
     "testmap":["Maps\Objects_test_Background.csv","Maps\Objects_test_Objects.csv"]
 }
 
+EVENT_IDS ={
+    "28": "restart",
+    "29": "restart"
+}
+
 #temperary map for testing   
 MAP = [
        [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],
