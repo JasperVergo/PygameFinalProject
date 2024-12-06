@@ -10,6 +10,7 @@ class Tile(pygame.sprite.Sprite):
         self.size = size 
         self.groups = groups 
         self.image = image
+        self.image = pygame.transform.scale(image, self.size)
         self.rect = self.image.get_rect(topleft = (x,y))
         self.hitbox = self.rect.inflate(inflation)
         self.id = id
