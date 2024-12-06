@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.0" name="Slimegeon" tilewidth="20" tileheight="20" tilecount="36" columns="0">
+<tileset version="1.10" tiledversion="1.11.0" name="Slimegeon" tilewidth="20" tileheight="20" tilecount="52" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image source="../tileset/floating_platform/platform.png" width="16" height="16"/>
@@ -98,7 +98,7 @@
   <image source="../tileset/transitions/wall_roof_corner_flipped.png" width="16" height="16"/>
  </tile>
  <tile id="32">
-  <image source="../tileset/wall/floor_3_flipped.png" width="16" height="16"/>
+  <image source="../tileset/wall/floor_3_flipped.png"/>
  </tile>
  <tile id="33">
   <image source="../tileset/wall/wall_1_flipped.png" width="16" height="16"/>
@@ -108,5 +108,53 @@
  </tile>
  <tile id="35">
   <image source="../Player/side_walk/frame_1.png" width="20" height="20"/>
+ </tile>
+ <tile id="36">
+  <image source="../deco/flower.png" width="16" height="16"/>
+ </tile>
+ <tile id="37">
+  <image source="../deco/flower_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="38">
+  <image source="../deco/flower_3.png" width="16" height="16"/>
+ </tile>
+ <tile id="39">
+  <image source="../deco/grass.png" width="16" height="16"/>
+ </tile>
+ <tile id="40">
+  <image source="../deco/grass_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="41">
+  <image source="../deco/grass_3.png" width="16" height="16"/>
+ </tile>
+ <tile id="42">
+  <image source="../deco/grass_4.png" width="16" height="16"/>
+ </tile>
+ <tile id="43">
+  <image source="../deco/grass_5.png" width="16" height="16"/>
+ </tile>
+ <tile id="44">
+  <image source="../deco/grass_6.png" width="16" height="16"/>
+ </tile>
+ <tile id="45">
+  <image source="../deco/rock.png" width="16" height="16"/>
+ </tile>
+ <tile id="46">
+  <image source="../deco/rock_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="47">
+  <image source="../deco/roof_grass.png" width="16" height="16"/>
+ </tile>
+ <tile id="48">
+  <image source="../deco/roof_grass_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="49">
+  <image source="../deco/roof_grass_3.png" width="16" height="16"/>
+ </tile>
+ <tile id="50">
+  <image source="../deco/shroom.png" width="16" height="16"/>
+ </tile>
+ <tile id="51">
+  <image source="../deco/shroom_2.png" width="16" height="16"/>
  </tile>
 </tileset>
