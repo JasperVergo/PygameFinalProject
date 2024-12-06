@@ -4,6 +4,34 @@ from Support import *
 
 pygame.init()
 
+
+def aspect_scale(img, box):
+    bx, by = box
+    """ Scales 'img' to fit into box bx/by.
+     This method will retain the original image's aspect ratio """
+    ix,iy = img.get_size()
+    if ix > iy:
+        # fit to width
+        scale_factor = bx/float(ix)
+        sy = scale_factor * iy
+        if sy > by:
+            scale_factor = by/float(iy)
+            sx = scale_factor * ix
+            sy = by
+        else:
+            sx = bx
+    else:
+        # fit to height
+        scale_factor = by/float(iy)
+        sx = scale_factor * ix
+        if sx > bx:
+            scale_factor = bx/float(ix)
+            sx = bx
+            sy = scale_factor * iy
+        else:
+            sy = by
+
+    return pygame.transform.scale(img, (sx,sy))
 #game window settings
 SCREEN_WIDTH = 1080
 SCREEN_HEIGHT = 720
@@ -12,7 +40,8 @@ pygame.display.set_caption("Escape the Slimgeon")
 
 #load background image
 background = import_folder('graphics/screens/Start_screen')
-background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))  # Scale the background to the screen size
+# background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))  # Scale the background to the screen size
+background = aspect_scale(background, (1080, 720))  # Scale the background to the screen size
 
 
 #load button images
@@ -23,7 +52,8 @@ class Button():
     def __init__(self, x, y, image, scale):
         width = image.get_width()
         height = image.get_height()
-        self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+        # self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+        self.image = aspect_scale(image, (width * scale, height * scale))
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
 
@@ -44,8 +74,8 @@ class Button():
         return False
 
 #create buttons
-start_button = Button(500, 350, start_img, 1)
-quit_button = Button(500, 450, quit_img, 1)
+start_button = Button(500, 390, start_img, 1.7)
+quit_button = Button(500, 490, quit_img, 1.7)
 
 #game loop
 run = True
