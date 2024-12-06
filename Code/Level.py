@@ -4,6 +4,7 @@ import Tile
 from Support import *
 import sys
 from Player import Player
+import Button
 
 
 class Level():
@@ -24,6 +25,9 @@ class Level():
         #contains sprites used for events in the event manager,
         #  in other words it contains trigger boxes for anything that need special or unique logic 
         self.event_Sprites = pygame.sprite.Group()
+
+        #for all ui elements
+        self.ui_elements = pygame.sprite.Group()
         ###########################################
 
         #get display surfice. a display surfice is what pygame draws things to
@@ -34,11 +38,16 @@ class Level():
         self.half_hight = self.display_serfice.get_size()[1] // 2
         self.draw_offset = pygame.math.Vector2()
         self.current_map = []
+        self.is_Menu = False
+
+        self.player = None
+
 
     
 
 
     def create_Map(self,map : list) -> None:
+        self.delete_Map()
         """loads several maps from csv files and makes tile objects with them"""
         self.current_map = map
         #graphics holds the pygame surfaces for each sprite Tile
@@ -121,40 +130,51 @@ class Level():
             "34":(0,0)
         }
 
-        #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
-        #calulating where it should be spawned based on the TILE_SIZE varible in Settings.py
+        if map == "Menu":   
+            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Start_screen"))
+            Button.Button(500, 350, "graphics\\buttons\\START", 1,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
+            Button.Button(500, 450, "graphics\\buttons\\Quit", 1,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
+        elif map == "Restart_Menu":
+            pass
+        else:
+            #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
+            #calulating where it should be spawned based on the TILE_SIZE varible in Settings.py
 
-        for layer in map:
-            for row_Index,row in enumerate(import_CSV_file(layer)):
-                for col_Index, col in enumerate(row):
+            for layer in map:
+                for row_Index,row in enumerate(import_CSV_file(layer)):
+                    for col_Index, col in enumerate(row):
 
 
-                    if col == "35": 
-                        #loads the player, Note: if no player is pressent the program will currently
-                        #  crash due to the update funtion calling it 
-                        self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self)
-                    elif col in EVENT_IDS:
-                        surf = graphics.get(col)
-                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
-                    elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
-                        surf = graphics.get(col)
-                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites],col,inflations.get(col),surf)
-                    elif col in graphics:
-                        surf = graphics.get(col)
-                        Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),TILE_SIZE, [self.visible_Sprites,self.collition_Sprites],col,inflations.get(col),surf)
-                    elif col != "-1":
-                        raise Exception(col)
+                        if col == "35": 
+                            #loads the player, Note: if no player is pressent the program will currently
+                            #  crash due to the update funtion calling it 
+                            self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self)
+                        elif col in EVENT_IDS:
+                            surf = graphics.get(col)
+                            Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
+                        elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
+                            surf = graphics.get(col)
+                            Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites],col,inflations.get(col),surf)
+                        elif col in graphics:
+                            surf = graphics.get(col)
+                            Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.collition_Sprites],col,inflations.get(col),surf)
+                        elif col != "-1":
+                            raise Exception(col)
 
-        if self.player == None:
-            self.player = Player(self.visible_Sprites,((DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 2)),self.collition_Sprites)            
+            if self.player == None:
+                self.player = Player(self.visible_Sprites,((DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 2)),self.collition_Sprites)            
 
     
     def update(self):
         """This is where all things that should be updated every frame """
         self.display_serfice.fill("black") #fills the screen with black to reset the sreen every frame 
-        self.player.update()
-        #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see 
-        self.custom_draw()
+        if self.current_map != "Menu":
+            self.player.update()
+            #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see 
+            self.custom_draw()
+        else:
+            self.visible_Sprites.draw(self.display_serfice)
+            self.ui_elements.update()
 
     def custom_draw(self):
         """custom draw to offset the camera based on the players position """
@@ -173,11 +193,15 @@ class Level():
         self.visible_Sprites.empty()
         self.collition_Sprites.empty()
         self.event_Sprites.empty()
-        del self.player
+        self.ui_elements.empty()
+        self.player = None
 
     def restart_map(self):
         self.delete_Map()
         self.create_Map(self.current_map)
+
+    def close_game(self):
+        pygame.event.post(pygame.QUIT)
 
 
 
