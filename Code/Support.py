@@ -14,12 +14,12 @@ def import_folder(path):
         for filename in filenames:
             filePath = osPath.join(*path.split("\\"), filename)
             image = pygame.image.load(filePath).convert_alpha()
-            image = pygame.transform.scale(image, (TILE_SIZE,TILE_SIZE))
+            # image = pygame.transform.scale(image, (TILE_SIZE,TILE_SIZE))
             surface.append(image) #loads and appends the image found by walk
         #returns a list of pygame image object, this is used as a surfice when displaying things
     else:
         image = pygame.image.load(osPath.join(*(path + ".png").split("\\"))).convert_alpha()
-        image = pygame.transform.scale(image, (TILE_SIZE,TILE_SIZE))
+        # image = pygame.transform.scale(image, (TILE_SIZE,TILE_SIZE))
         return image
     return surface
 
