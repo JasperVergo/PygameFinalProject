@@ -28,6 +28,9 @@ class Level():
 
         #for all ui elements
         self.ui_elements = pygame.sprite.Group()
+
+        #for all grass and wiggly things
+        self.folliage = pygame.sprite.Group()
         ###########################################
 
         #get display surfice. a display surfice is what pygame draws things to
@@ -185,13 +188,16 @@ class Level():
                         if col == "35": 
                             #loads the player, Note: if no player is pressent the program will currently
                             #  crash due to the update funtion calling it 
-                            self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self)
+                            self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self,self.folliage)
                         elif col in EVENT_IDS: 
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
-                        elif col in ["3","4","8","19","23","27","28","29","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51"]: # sprites without collision
+                        elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites],col,inflations.get(col),surf)
+                        elif col in ["36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51"]: #folliage
+                            surf = graphics.get(col)
+                            Tile.folliage((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.folliage],col,inflations.get(col),surf,self.player)
                         elif col in graphics:
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.collition_Sprites],col,inflations.get(col),surf)
@@ -212,6 +218,7 @@ class Level():
         else:
             self.visible_Sprites.draw(self.display_serfice)
             self.ui_elements.update()
+            
 
     def custom_draw(self):
         """custom draw to offset the camera based on the players position """

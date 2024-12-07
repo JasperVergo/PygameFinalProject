@@ -5,7 +5,7 @@ import Level
   
 def main():
 
-    pygame.init() 
+    pygame.init()
     
 
     

@@ -19,7 +19,7 @@ player_Base_Stats = {
 
 MAPS = {
     "testmap":["Maps\Objects_test_Background.csv","Maps\Objects_test_Objects.csv"],
-    "Map3":["Maps\Map3._Objects.csv","Maps\Map3._Tiles.csv"]
+    "Map3":["Maps\Map3._Player.csv","Maps\Map3._Objects.csv","Maps\Map3._Tiles.csv"]
 }
 
 EVENT_IDS ={
