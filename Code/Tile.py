@@ -31,6 +31,7 @@ class folliage(Tile):
         self.total_rotation = 0
 
     def jiggle(self):
+        """rotates the folliage to get a little jiggle """
         if self.current_frame % self.jiggle_speed == 0 and self.player_ref.velocity.magnitude() > 0:
             if not self.is_jiggled:
                 self.image = pygame.transform.rotate(self.image, self.jiggle_amount * -1)
@@ -38,7 +39,6 @@ class folliage(Tile):
             else:
                 self.image = self.base_image
                 self.is_jiggled = False
-            print(self.image.get_size())
 
 
 

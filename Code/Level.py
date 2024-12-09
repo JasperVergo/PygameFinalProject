@@ -53,7 +53,6 @@ class Level():
         self.delete_Map()
         """loads several maps from csv files and makes tile objects with them"""
         self.current_map = map
-        print(map)
         #graphics holds the pygame surfaces for each sprite Tile
         #TODO: fix this so the hitboxes are right
         graphics = {           
@@ -226,7 +225,7 @@ class Level():
         
         self.draw_offset.x = self.player.rect.centerx - self.half_width
         self.draw_offset.y = self.player.rect.centery - self.half_hight
-
+        #blits visible sprites and applies offset based on the player position
         for sprite in self.visible_Sprites:
             offset_pos = sprite.rect.topleft - self.draw_offset
             self.display_serfice.blit(sprite.image,offset_pos)
@@ -246,6 +245,7 @@ class Level():
         self.create_Map(self.current_map)
 
     def close_game(self):
+        """Closes the game"""
         pygame.event.post(pygame.QUIT)
 
 
