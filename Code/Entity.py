@@ -28,9 +28,9 @@ class Enity(pygame.sprite.Sprite):
 
         self.gravity = 1 #gravity speed
         self.is_gravity_active = True
-        self.max_gravity_speed = 8
+        self.max_gravity_speed = 20
         self.velocity = pygame.Vector2(0,0)
-        self.drag = .01
+        self.drag = .001
         
 
 
