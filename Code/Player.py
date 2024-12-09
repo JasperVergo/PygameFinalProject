@@ -115,11 +115,11 @@ class Player(Enity):
         keydown = pygame.key.get_pressed()
         if not self.is_dashing:
             #sets direction of horzantal movment 
-            if keydown[pygame.K_a]:
+            if keydown[pygame.K_a] or keydown[pygame.K_LEFT]:
                 self.direction.x = -1
                 self.control_direction.x = -1
                 self.flipped = True
-            elif keydown[pygame.K_d]:
+            elif keydown[pygame.K_d] or keydown[pygame.K_RIGHT]:
                 self.direction.x = 1
                 self.control_direction.x = 1
                 self.flipped = False
@@ -127,9 +127,9 @@ class Player(Enity):
                 self.direction.x = 0
                 self.control_direction.x = 0
 
-            if keydown[pygame.K_w]:
+            if keydown[pygame.K_w] or keydown[pygame.K_UP]:
                 self.control_direction.y = -1
-            elif keydown[pygame.K_s]:
+            elif keydown[pygame.K_s] or keydown[pygame.K_DOWN]:
                 self.control_direction.y = 1
             else:
                 self.control_direction.y = 0
@@ -153,7 +153,7 @@ class Player(Enity):
             if self.hitbox.colliderect(event.hitbox):
                 #triggers each event
                 if EVENT_IDS.get(event.id) == "restart":
-                    self.level.restart_map()
+                    self.level.create_Map("Restart_Menu")
 
 
     def update(self):
@@ -167,7 +167,6 @@ class Player(Enity):
 
         self.check_events()
         self.collide_folliage()
-
 
         if self.is_dashing:
             self.move(self.dashVelocity)

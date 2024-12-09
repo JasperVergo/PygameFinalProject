@@ -49,10 +49,11 @@ class Level():
     
 
 
-    def create_Map(self,map : list) -> None:
+    def create_Map(self,map) -> None:
         self.delete_Map()
         """loads several maps from csv files and makes tile objects with them"""
         self.current_map = map
+        print(map)
         #graphics holds the pygame surfaces for each sprite Tile
         #TODO: fix this so the hitboxes are right
         graphics = {           
@@ -211,10 +212,10 @@ class Level():
     def update(self):
         """This is where all things that should be updated every frame """
         self.display_serfice.fill("black") #fills the screen with black to reset the sreen every frame 
-        if self.current_map != "Menu":
-            self.player.update()
-            #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see 
+        if self.current_map not in ["Restart_Menu","Menu"]:
             self.custom_draw()
+            self.player.update()
+            #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see   
         else:
             self.visible_Sprites.draw(self.display_serfice)
             self.ui_elements.update()
