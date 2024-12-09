@@ -1,6 +1,7 @@
 import pygame
 import sys
 from Support import *
+import os
 
 pygame.init()
 
@@ -32,6 +33,8 @@ def aspect_scale(img, box):
             sy = by
 
     return pygame.transform.scale(img, (sx,sy))
+
+
 #game window settings
 SCREEN_WIDTH = 1080
 SCREEN_HEIGHT = 720
@@ -39,14 +42,16 @@ screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Escape the Slimgeon")
 
 #load background image
-background = import_folder('graphics/screens/Start_screen')
-# background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))  # Scale the background to the screen size
-background = aspect_scale(background, (1080, 720))  # Scale the background to the screen size
+background = pygame.image.load('graphics/screens/Start_screen.png').convert_alpha()
+width = background.get_width()
+height = background.get_height()
+background = aspect_scale(background, (width * 4.5, height * 4.5))  # Scale the background to the screen size
+# background = aspect_scale(background, (300, 160))  # Scale the background to the screen size
 
 
 #load button images
-start_img = import_folder('graphics/buttons/START')
-quit_img = import_folder('graphics/buttons/Quit')
+start_img = pygame.image.load('graphics/buttons/START.png').convert_alpha()
+quit_img = pygame.image.load('graphics/buttons/Quit.png').convert_alpha()
 
 class Button():
     def __init__(self, x, y, image, scale):
@@ -56,6 +61,7 @@ class Button():
         self.image = aspect_scale(image, (width * scale, height * scale))
         self.rect = self.image.get_rect()
         self.rect.topleft = (x, y)
+
 
     def draw(self):
         screen.blit(self.image, (self.rect.x, self.rect.y))
@@ -74,8 +80,8 @@ class Button():
         return False
 
 #create buttons
-start_button = Button(500, 390, start_img, 1.7)
-quit_button = Button(500, 490, quit_img, 1.7)
+start_button = Button(450, 350, start_img, 1.6)
+quit_button = Button(450, 440, quit_img, 1.6)
 
 #game loop
 run = True
@@ -112,3 +118,5 @@ while run:
 #quit the Game
 pygame.quit()
 sys.exit()
+
+

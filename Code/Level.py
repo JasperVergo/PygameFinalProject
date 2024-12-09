@@ -169,9 +169,15 @@ class Level():
         }
 
         if map == "Menu":   
+<<<<<<< HEAD
+            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_bg("graphics\screens\Start_screen"))
+            Button.Button(420, 380, "graphics\\buttons\\START", 1.8,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
+            Button.Button(420, 460, "graphics\\buttons\\Quit", 1.8,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
+=======
             Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Start_screen",True))
             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map3"))
             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
+>>>>>>> c4c6df287bf0e03dcfb2905fbc7d18fa337ef82b
         elif map == "Restart_Menu":
             Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Pause_screen",True))
             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map3"))
