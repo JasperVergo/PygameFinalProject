@@ -5,7 +5,7 @@ from Support import *
 import math
 
 class Player(Enity):
-    def __init__(self,groups,pos,collition_sprites,event_sprites,id,level,folliage_sprites):
+    def __init__(self,groups,pos,collition_sprites,event_sprites,id,level,folliage_sprites,dashUI):
         super().__init__(groups,collition_sprites,player_Base_Stats["maxHealth"],folliage_sprites)
         #TODO: orginize this init 
         self.speed = player_Base_Stats["speed"] #the move speed of the player
@@ -38,6 +38,7 @@ class Player(Enity):
         self.jumpVelocity = player_Base_Stats["jumpVelocity"]
         self.dashVelocity = player_Base_Stats["dashVelocity"]
         self.dash_timer = -1
+        self.dash_UI = dashUI
 
     def get_Current_State(self):
         '''
@@ -166,6 +167,7 @@ class Player(Enity):
             self.animate()
 
         self.check_events()
+        self.dash_UI.update_status(self.can_dash)
         self.collide_folliage()
 
         if self.is_dashing:
