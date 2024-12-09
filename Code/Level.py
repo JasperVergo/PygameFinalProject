@@ -131,9 +131,9 @@ class Level():
         }
 
         if map == "Menu":   
-            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Start_screen"))
-            Button.Button(500, 350, "graphics\\buttons\\START", 1,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
-            Button.Button(500, 450, "graphics\\buttons\\Quit", 1,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
+            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_bg("graphics\screens\Start_screen"))
+            Button.Button(420, 380, "graphics\\buttons\\START", 1.8,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
+            Button.Button(420, 460, "graphics\\buttons\\Quit", 1.8,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
         elif map == "Restart_Menu":
             pass
         else:

@@ -71,8 +71,8 @@ class Button():
         return False
 
 #create buttons
-restart_button = Button(410, 300, restart_img, 1.7)
-quit_button = Button(410, 400, quit_img, 1.7)
+restart_button = Button(412, 300, restart_img, 1.7)
+quit_button = Button(412, 400, quit_img, 1.7)
 
 #game loop
 run = True
