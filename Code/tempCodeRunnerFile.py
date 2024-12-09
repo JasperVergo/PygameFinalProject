@@ -1,1 +1,1 @@
-create_Map
+aspect_scale(image, (width * scale, height * scale))

@@ -11,7 +11,7 @@ class Button(pygame.sprite.Sprite):
         # self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
         self.image = self.aspect_scale(image, (width * scale, height * scale))
         self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
+        self.rect.center = (x, y)
         self.screen = screen
         self.clicked_action = click_action
         self.action_args = action_args

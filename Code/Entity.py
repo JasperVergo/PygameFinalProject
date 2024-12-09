@@ -4,7 +4,7 @@ from Settings import TILE_SIZE
 
 class Enity(pygame.sprite.Sprite):
 
-    def __init__(self,groups,collition_sprites,max_Health):
+    def __init__(self,groups,collition_sprites,max_Health,folliage_sprites):
         super().__init__(groups)
         #max health and current health are needed to insure that even if the player heals they won't go over the maximum health
         #it is also used for the health bars ratios
@@ -24,6 +24,7 @@ class Enity(pygame.sprite.Sprite):
 
         self.collition_Sprites = collition_sprites
         self.collition_tolorance = 5
+        self.folliage_sprites = folliage_sprites
 
         self.gravity = 1 #gravity speed
         self.is_gravity_active = True
@@ -43,7 +44,6 @@ class Enity(pygame.sprite.Sprite):
         
         #moves the entity based on the direction 
         self.velocity.x = self.direction.x * speed
-
         if self.is_gravity_active:
             if self.is_falling():
                 self.velocity.y += self.gravity
@@ -146,6 +146,10 @@ class Enity(pygame.sprite.Sprite):
     def check_bottomright_collition(self,sprite):
         return sprite.hitbox.collidepoint(self.hitbox.bottomright)
     
+    def collide_folliage(self):
+        for sprite in self.folliage_sprites:
+            if self.hitbox.colliderect(sprite.hitbox):
+                sprite.jiggle()
 
     def animate(self):
         """updates the frame of the animation based on the status. the animation frames are retrived from the self.graphics variable"""

@@ -28,6 +28,9 @@ class Level():
 
         #for all ui elements
         self.ui_elements = pygame.sprite.Group()
+
+        #for all grass and wiggly things
+        self.folliage = pygame.sprite.Group()
         ###########################################
 
         #get display surfice. a display surfice is what pygame draws things to
@@ -88,7 +91,23 @@ class Level():
             "31":import_folder("graphics\\tileset\\transitions\\wall_roof_corner_flipped"),
             "32":import_folder("graphics\\tileset\wall\\wall_3_flipped"),
             "33":import_folder("graphics\\tileset\wall\\wall_1_flipped"),
-            "34":import_folder("graphics\\tileset\wall\\wall_2_flipped")
+            "34":import_folder("graphics\\tileset\wall\\wall_2_flipped"),
+            "36":import_folder("Graphics\\deco\\flower"),
+            "37":import_folder("Graphics\\deco\\flower_2"),
+            "38":import_folder("Graphics\\deco\\flower_3"),
+            "39":import_folder("Graphics\deco\grass"),
+            "40":import_folder("Graphics\deco\grass_2"),
+            "41":import_folder("Graphics\deco\grass_3"),
+            "42":import_folder("Graphics\deco\grass_4"),
+            "43":import_folder("Graphics\deco\grass_5"),
+            "44":import_folder("Graphics\deco\grass_6"),
+            "45":import_folder("Graphics\\deco\\rock"),
+            "46":import_folder("Graphics\\deco\\rock_2"),
+            "47":import_folder("Graphics\deco\\roof_grass"),
+            "48":import_folder("Graphics\deco\\roof_grass_2"),
+            "49":import_folder("Graphics\deco\\roof_grass_3"),
+            "50":import_folder("Graphics\\deco\\shroom"),
+            "51":import_folder("Graphics\deco\shroom")
         }
         #alters the hitbox size for specific tiles
         inflations = {
@@ -127,15 +146,42 @@ class Level():
             "31":(0,0),
             "32":(0,0),
             "33":(0,0),
-            "34":(0,0)
+            "34":(0,0),
+            "34":(0,0),
+            "35":(0,0),
+            "36":(0,0),
+            "37":(0,0),
+            "38":(0,0),
+            "39":(0,0),
+            "40":(0,0),
+            "41":(0,0),
+            "42":(0,0),
+            "43":(0,0),
+            "44":(0,0),
+            "45":(0,0),
+            "46":(0,0),
+            "47":(0,0),
+            "48":(0,0),
+            "49":(0,0),
+            "50":(0,0),
+            "51":(0,0)
+            
         }
 
         if map == "Menu":   
+<<<<<<< HEAD
             Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_bg("graphics\screens\Start_screen"))
             Button.Button(420, 380, "graphics\\buttons\\START", 1.8,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
             Button.Button(420, 460, "graphics\\buttons\\Quit", 1.8,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
+=======
+            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Start_screen",True))
+            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map3"))
+            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
+>>>>>>> c4c6df287bf0e03dcfb2905fbc7d18fa337ef82b
         elif map == "Restart_Menu":
-            pass
+            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Pause_screen",True))
+            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map3"))
+            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
         else:
             #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
             #calulating where it should be spawned based on the TILE_SIZE varible in Settings.py
@@ -148,13 +194,16 @@ class Level():
                         if col == "35": 
                             #loads the player, Note: if no player is pressent the program will currently
                             #  crash due to the update funtion calling it 
-                            self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self)
-                        elif col in EVENT_IDS:
+                            self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self,self.folliage)
+                        elif col in EVENT_IDS: 
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
                         elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites],col,inflations.get(col),surf)
+                        elif col in ["36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51"]: #folliage
+                            surf = graphics.get(col)
+                            Tile.folliage((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.folliage],col,inflations.get(col),surf,self.player)
                         elif col in graphics:
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.collition_Sprites],col,inflations.get(col),surf)
@@ -175,6 +224,7 @@ class Level():
         else:
             self.visible_Sprites.draw(self.display_serfice)
             self.ui_elements.update()
+            
 
     def custom_draw(self):
         """custom draw to offset the camera based on the players position """
