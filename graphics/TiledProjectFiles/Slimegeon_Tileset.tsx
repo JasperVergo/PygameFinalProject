@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.0" name="Slimegeon" tilewidth="20" tileheight="20" tilecount="36" columns="0">
+<tileset version="1.10" tiledversion="1.11.0" name="Slimegeon" tilewidth="32" tileheight="48" tilecount="61" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="0">
   <image source="../tileset/floating_platform/platform.png" width="16" height="16"/>
@@ -98,7 +98,7 @@
   <image source="../tileset/transitions/wall_roof_corner_flipped.png" width="16" height="16"/>
  </tile>
  <tile id="32">
-  <image source="../tileset/wall/floor_3_flipped.png" width="16" height="16"/>
+  <image source="../tileset/wall/floor_3_flipped.png"/>
  </tile>
  <tile id="33">
   <image source="../tileset/wall/wall_1_flipped.png" width="16" height="16"/>
@@ -108,5 +108,80 @@
  </tile>
  <tile id="35">
   <image source="../Player/side_walk/frame_1.png" width="20" height="20"/>
+ </tile>
+ <tile id="36">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/door.png" width="32" height="48"/>
+ </tile>
+ <tile id="38">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/Background/back.png" width="16" height="16"/>
+ </tile>
+ <tile id="39">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/flower.png" width="16" height="16"/>
+ </tile>
+ <tile id="40">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/flower_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="41">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/flower_3.png" width="16" height="16"/>
+ </tile>
+ <tile id="42">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/grass.png" width="16" height="16"/>
+ </tile>
+ <tile id="43">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/grass_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="44">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/grass_3.png" width="16" height="16"/>
+ </tile>
+ <tile id="45">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/grass_4.png" width="16" height="16"/>
+ </tile>
+ <tile id="46">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/grass_5.png" width="16" height="16"/>
+ </tile>
+ <tile id="47">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/grass_6.png" width="16" height="16"/>
+ </tile>
+ <tile id="48">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/rock.png" width="16" height="16"/>
+ </tile>
+ <tile id="49">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/rock_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="50">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/roof_grass.png" width="16" height="16"/>
+ </tile>
+ <tile id="51">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/roof_grass_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="52">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/roof_grass_3.png" width="16" height="16"/>
+ </tile>
+ <tile id="53">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/shroom.png" width="16" height="16"/>
+ </tile>
+ <tile id="54">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/plants/shroom_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="55">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/assets/upside_down_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="56">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/assets/upside_down_trans.png" width="16" height="16"/>
+ </tile>
+ <tile id="57">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/assets/upside_down_trans_2.png" width="16" height="16"/>
+ </tile>
+ <tile id="58">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/assets/upside_down_3.png" width="16" height="16"/>
+ </tile>
+ <tile id="59">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/assets/spikes_2_upsidedown.png" width="16" height="16"/>
+ </tile>
+ <tile id="60">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/assets/spikes_upsidedown.png" width="16" height="16"/>
+ </tile>
+ <tile id="62">
+  <image source="D:/Clark/3rd semester/Intro to Comp/Final/Background/floating platform/platform_end_left_2.png" width="16" height="16"/>
  </tile>
 </tileset>
