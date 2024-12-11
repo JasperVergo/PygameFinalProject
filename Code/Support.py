@@ -49,3 +49,6 @@ def import_CSV_file(path):
         reader = csv.reader(mapLayer)
         return list(reader)
 
+def import_audio_file(path,):
+    audio = pygame.mixer.Sound(osPath.join(*(path).split("\\")))
+    return audio

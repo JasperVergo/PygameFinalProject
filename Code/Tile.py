@@ -20,27 +20,26 @@ class folliage(Tile):
     def __init__(self, x, y, size, groups, id, inflation, image,player):
         super().__init__(x, y, size, groups, id, inflation, image)
         self.is_jiggling = False
-        self.jiggle_speed = 4 # bigger is slower
-        self.jiggle_amount = .8 #lower is higher jiggle
+        self.jiggle_speed = 6 # bigger is slower
+        self.jiggle_amount = 4
         self.current_frame = 0
         self.jiggle_start = self.current_frame
         self.player_ref = player
         self.is_jiggled = False
+        self.base_image = self.image
 
         self.total_rotation = 0
 
     def jiggle(self):
+        """rotates the folliage to get a little jiggle """
         if self.current_frame % self.jiggle_speed == 0 and self.player_ref.velocity.magnitude() > 0:
-            print("jiggle")
             if not self.is_jiggled:
                 self.image = pygame.transform.rotate(self.image, self.jiggle_amount * -1)
                 self.is_jiggled = True
             else:
-                self.image = pygame.transform.rotate(self.image, self.jiggle_amount)
+                self.image = self.base_image
                 self.is_jiggled = False
 
-            self.rect = self.image.get_rect(topleft=(self.x,self.y))
-            print(self.rect.topleft,self.total_rotation)
 
 
         self.current_frame += 1

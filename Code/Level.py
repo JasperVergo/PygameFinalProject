@@ -5,6 +5,7 @@ from Support import *
 import sys
 from Player import Player
 import Button
+import ui
 
 
 class Level():
@@ -49,7 +50,7 @@ class Level():
     
 
 
-    def create_Map(self,map : list) -> None:
+    def create_Map(self,map) -> None:
         self.delete_Map()
         """loads several maps from csv files and makes tile objects with them"""
         self.current_map = map
@@ -188,8 +189,15 @@ class Level():
                         if col == "35": 
                             #loads the player, Note: if no player is pressent the program will currently
                             #  crash due to the update funtion calling it 
-                            self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self,self.folliage)
-                        elif col in EVENT_IDS: 
+                            ui_padding = 10
+                            self.key_w = ui.Ui_element((ui_padding * 2 + TILE_SIZE, ui_padding),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\W"),[self.ui_elements])
+                            self.key_s = ui.Ui_element((ui_padding * 2 + TILE_SIZE,ui_padding * 2 + TILE_SIZE),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\S"),[self.ui_elements])
+                            self.key_a = ui.Ui_element((ui_padding,ui_padding * 2 + TILE_SIZE),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\A"),[self.ui_elements])
+                            self.key_d = ui.Ui_element((TILE_SIZE * 2 + ui_padding * 3,ui_padding * 2 + TILE_SIZE),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\D"),[self.ui_elements])
+                            self.key_f = ui.Ui_element((TILE_SIZE * 3 + ui_padding * 5,ui_padding * 2 + TILE_SIZE),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\F"),[self.ui_elements])
+                            self.dash_ui = ui.Dash_icon((DEFAULT_WIDTH - (TILE_SIZE + 20), DEFAULT_HIGHT - (TILE_SIZE + 20)),(TILE_SIZE,TILE_SIZE),[import_folder("Graphics\sphere\sphere_dash"),import_folder("Graphics\sphere\sphere")],import_folder("Graphics\sphere\sphere_dash"),[self.ui_elements])
+                            self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self,self.folliage,self.dash_ui)
+                        elif col in EVENT_IDS:
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
                         elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
@@ -206,15 +214,18 @@ class Level():
 
             if self.player == None:
                 self.player = Player(self.visible_Sprites,((DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 2)),self.collition_Sprites)            
-
+            pygame.mixer.music.load("Audio\\mixkit-forest-birds-ambience-1210.wav") #audio from https://mixkit.co/free-sound-effects/ambience/
+            pygame.mixer.music.set_volume(.2)
+            pygame.mixer.music.play(-1,0,1000)
     
     def update(self):
         """This is where all things that should be updated every frame """
         self.display_serfice.fill("black") #fills the screen with black to reset the sreen every frame 
-        if self.current_map != "Menu":
-            self.player.update()
-            #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see 
+        if self.current_map not in ["Restart_Menu","Menu"]:
             self.custom_draw()
+            self.player.update()
+            self.ui_elements.draw(self.display_serfice)
+            #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see   
         else:
             self.visible_Sprites.draw(self.display_serfice)
             self.ui_elements.update()
@@ -225,7 +236,7 @@ class Level():
         
         self.draw_offset.x = self.player.rect.centerx - self.half_width
         self.draw_offset.y = self.player.rect.centery - self.half_hight
-
+        #blits visible sprites and applies offset based on the player position
         for sprite in self.visible_Sprites:
             offset_pos = sprite.rect.topleft - self.draw_offset
             self.display_serfice.blit(sprite.image,offset_pos)
@@ -245,6 +256,7 @@ class Level():
         self.create_Map(self.current_map)
 
     def close_game(self):
+        """Closes the game"""
         pygame.event.post(pygame.QUIT)
 
 
