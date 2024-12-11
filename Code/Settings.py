@@ -1,7 +1,7 @@
 #Screen settings 
 FPS = 60
-DEFAULT_WIDTH = 1080
-DEFAULT_HIGHT = 720
+DEFAULT_WIDTH = 1500
+DEFAULT_HIGHT = 800
 
 #Tile info 
 TILE_SIZE = 64
@@ -18,7 +18,8 @@ player_Base_Stats = {
 
 
 MAPS = {
-    "testmap":["Maps\Objects_test_Background.csv","Maps\Objects_test_Objects.csv"]
+    "testmap":["Maps\Objects_test_Background.csv","Maps\Objects_test_Objects.csv"],
+    "Map3":["Maps\Map3._Player.csv","Maps\Map3._Objects.csv","Maps\Map3._Tiles.csv"]
 }
 
 EVENT_IDS ={

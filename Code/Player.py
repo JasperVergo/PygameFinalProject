@@ -5,8 +5,8 @@ from Support import *
 import math
 
 class Player(Enity):
-    def __init__(self,groups,pos,collition_sprites,event_sprites,id,level):
-        super().__init__(groups,collition_sprites,player_Base_Stats["maxHealth"])
+    def __init__(self,groups,pos,collition_sprites,event_sprites,id,level,folliage_sprites):
+        super().__init__(groups,collition_sprites,player_Base_Stats["maxHealth"],folliage_sprites)
         #TODO: orginize this init 
         self.speed = player_Base_Stats["speed"] #the move speed of the player
         #visuals 
@@ -166,6 +166,7 @@ class Player(Enity):
             self.animate()
 
         self.check_events()
+        self.collide_folliage()
 
 
         if self.is_dashing:

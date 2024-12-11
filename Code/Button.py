@@ -8,9 +8,10 @@ class Button(pygame.sprite.Sprite):
         image = pygame.image.load(osPath.join(*(filepath + ".png").split("\\"))).convert_alpha()
         width = image.get_width()
         height = image.get_height()
-        self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+        # self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+        self.image = self.aspect_scale(image, (width * scale, height * scale))
         self.rect = self.image.get_rect()
-        self.rect.topleft = (x, y)
+        self.rect.center = (x, y)
         self.screen = screen
         self.clicked_action = click_action
         self.action_args = action_args
@@ -38,4 +39,32 @@ class Button(pygame.sprite.Sprite):
         self.draw()
         self.is_hovered()
         self.is_clicked()
+
+    def aspect_scale(self, image, box):
+        bx, by = box
+        """ Scales 'img' to fit into box bx/by.
+        This method will retain the original image's aspect ratio """
+        ix,iy = image.get_size()
+        if ix > iy:
+            # fit to width
+            scale_factor = bx/float(ix)
+            sy = scale_factor * iy
+            if sy > by:
+                scale_factor = by/float(iy)
+                sx = scale_factor * ix
+                sy = by
+            else:
+                sx = bx
+        else:
+            # fit to height
+            scale_factor = by/float(iy)
+            sx = scale_factor * ix
+            if sx > bx:
+                scale_factor = bx/float(ix)
+                sx = bx
+                sy = scale_factor * iy
+            else:
+                sy = by
+
+        return pygame.transform.scale(image, (sx,sy))
 
