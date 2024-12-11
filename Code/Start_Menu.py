@@ -36,8 +36,8 @@ def aspect_scale(img, box):
 
 
 #game window settings
-SCREEN_WIDTH = 1080
-SCREEN_HEIGHT = 720
+SCREEN_WIDTH = 1500
+SCREEN_HEIGHT = 800
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Escape the Slimgeon")
 
