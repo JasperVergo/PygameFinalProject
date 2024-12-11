@@ -189,7 +189,13 @@ class Level():
                         if col == "35": 
                             #loads the player, Note: if no player is pressent the program will currently
                             #  crash due to the update funtion calling it 
-                            self.dash_ui = ui.Dash_icon((DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9),(TILE_SIZE,TILE_SIZE),[import_folder("Graphics\\Test\\rock"),import_folder("Graphics\squirrel\idle")],import_folder("Graphics\\Test\\rock"),[self.ui_elements,self.visible_Sprites])
+                            ui_padding = 10
+                            self.key_w = ui.Ui_element((ui_padding * 2 + TILE_SIZE, ui_padding),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\W"),[self.ui_elements])
+                            self.key_s = ui.Ui_element((ui_padding * 2 + TILE_SIZE,ui_padding * 2 + TILE_SIZE),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\S"),[self.ui_elements])
+                            self.key_a = ui.Ui_element((ui_padding,ui_padding * 2 + TILE_SIZE),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\A"),[self.ui_elements])
+                            self.key_d = ui.Ui_element((TILE_SIZE * 2 + ui_padding * 3,ui_padding * 2 + TILE_SIZE),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\D"),[self.ui_elements])
+                            self.key_f = ui.Ui_element((TILE_SIZE * 3 + ui_padding * 5,ui_padding * 2 + TILE_SIZE),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\F"),[self.ui_elements])
+                            self.dash_ui = ui.Dash_icon((DEFAULT_WIDTH - (TILE_SIZE + 20), DEFAULT_HIGHT - (TILE_SIZE + 20)),(TILE_SIZE,TILE_SIZE),[import_folder("Graphics\sphere\sphere_dash"),import_folder("Graphics\sphere\sphere")],import_folder("Graphics\sphere\sphere_dash"),[self.ui_elements])
                             self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self,self.folliage,self.dash_ui)
                         elif col in EVENT_IDS:
                             surf = graphics.get(col)
@@ -216,6 +222,7 @@ class Level():
         if self.current_map not in ["Restart_Menu","Menu"]:
             self.custom_draw()
             self.player.update()
+            self.ui_elements.draw(self.display_serfice)
             #TODO: add culling so the game won't load the whole map but instead will load only the part the player can see   
         else:
             self.visible_Sprites.draw(self.display_serfice)
