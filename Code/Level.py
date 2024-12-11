@@ -214,7 +214,9 @@ class Level():
 
             if self.player == None:
                 self.player = Player(self.visible_Sprites,((DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 2)),self.collition_Sprites)            
-
+            pygame.mixer.music.load("Audio\\mixkit-forest-birds-ambience-1210.wav") #audio from https://mixkit.co/free-sound-effects/ambience/
+            pygame.mixer.music.set_volume(.2)
+            pygame.mixer.music.play(-1,0,1000)
     
     def update(self):
         """This is where all things that should be updated every frame """

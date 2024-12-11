@@ -3,6 +3,7 @@ from Entity import Enity
 from Settings import *
 from Support import *
 import math
+import random
 
 class Player(Enity):
     def __init__(self,groups,pos,collition_sprites,event_sprites,id,level,folliage_sprites,dashUI):
@@ -19,6 +20,15 @@ class Player(Enity):
             "up_dash" : import_folder("graphics\Player\\up_dash_anim"),
             "fall" : import_folder("graphics\Player\\fall_anim")
         }
+        #sounds from https://freesound.org/search/?q=footstep&f=grouping_pack%3A%229344_Footsteps%22
+        self.footprints_sound = [
+            pygame.mixer.Sound(import_audio_file("Audio\\Footstep_1.wav")),
+            pygame.mixer.Sound(import_audio_file("Audio\\Footstep_2.wav")),
+            pygame.mixer.Sound(import_audio_file("Audio\\Footstep_3.wav")),
+            pygame.mixer.Sound(import_audio_file("Audio\\Footstep_4.wav")),
+        ]
+        for sound in self.footprints_sound:
+            sound.set_volume(.1)
         self.holdAnimations = ["jump","side_dash","up_dash","fall"]
         self.event_sprites = event_sprites
         self.id = id
@@ -39,6 +49,8 @@ class Player(Enity):
         self.dashVelocity = player_Base_Stats["dashVelocity"]
         self.dash_timer = -1
         self.dash_UI = dashUI
+        self.dash_sound = pygame.mixer.Sound("Audio\mixkit-air-in-a-hit-2161.wav") # from https://mixkit.co/free-sound-effects/swish/
+        self.dash_sound.set_volume(.3)
 
     def get_Current_State(self):
         '''
@@ -53,6 +65,9 @@ class Player(Enity):
 
         if self.direction.x != 0:
             self.status = "side_walk"
+
+            
+           
         else:
             self.status = "side_idle"
 
@@ -80,6 +95,7 @@ class Player(Enity):
             self.direction.y = 1
             self.is_jumping = True
 
+
     def dash(self):
         if self.can_dash and not self.is_dashing:
             print("dash")
@@ -99,7 +115,8 @@ class Player(Enity):
                     self.velocity.x = self.dashVelocity * -1 
                 else: 
                     self.velocity.x = self.dashVelocity 
-                
+            self.dash_sound.play()
+            
                 
 
     def on_Ground_hit(self):
@@ -165,6 +182,10 @@ class Player(Enity):
         #triggers next frame every 8 frames, to increase animation speed decrease this number 
         if self.current_frame % 8 == 0:
             self.animate()
+        #walking sounds
+        if self.current_frame % 10 == 0 and "walk" in self.status.split("_"):
+                random.choice(self.footprints_sound).play()
+
 
         self.check_events()
         self.dash_UI.update_status(self.can_dash)
