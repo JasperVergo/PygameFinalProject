@@ -5,6 +5,7 @@ from Support import *
 import sys
 from Player import Player
 import Button
+import ui
 
 
 class Level():
@@ -169,15 +170,9 @@ class Level():
         }
 
         if map == "Menu":   
-<<<<<<< HEAD
-            Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_bg("graphics\screens\Start_screen"))
-            Button.Button(420, 380, "graphics\\buttons\\START", 1.8,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
-            Button.Button(420, 460, "graphics\\buttons\\Quit", 1.8,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
-=======
             Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Start_screen",True))
             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map3"))
             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
->>>>>>> c4c6df287bf0e03dcfb2905fbc7d18fa337ef82b
         elif map == "Restart_Menu":
             Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Pause_screen",True))
             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map3"))
@@ -194,8 +189,9 @@ class Level():
                         if col == "35": 
                             #loads the player, Note: if no player is pressent the program will currently
                             #  crash due to the update funtion calling it 
-                            self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self,self.folliage)
-                        elif col in EVENT_IDS: 
+                            self.dash_ui = ui.Dash_icon((DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9),(TILE_SIZE,TILE_SIZE),[import_folder("Graphics\\Test\\rock"),import_folder("Graphics\squirrel\idle")],import_folder("Graphics\\Test\\rock"),[self.ui_elements,self.visible_Sprites])
+                            self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self,self.folliage,self.dash_ui)
+                        elif col in EVENT_IDS:
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
                         elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
