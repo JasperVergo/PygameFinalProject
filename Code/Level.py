@@ -93,22 +93,35 @@ class Level():
             "32":import_folder("graphics\\tileset\wall\\wall_3_flipped"),
             "33":import_folder("graphics\\tileset\wall\\wall_1_flipped"),
             "34":import_folder("graphics\\tileset\wall\\wall_2_flipped"),
-            "36":import_folder("Graphics\\deco\\flower"),
-            "37":import_folder("Graphics\\deco\\flower_2"),
-            "38":import_folder("Graphics\\deco\\flower_3"),
-            "39":import_folder("Graphics\deco\grass"),
-            "40":import_folder("Graphics\deco\grass_2"),
-            "41":import_folder("Graphics\deco\grass_3"),
-            "42":import_folder("Graphics\deco\grass_4"),
-            "43":import_folder("Graphics\deco\grass_5"),
-            "44":import_folder("Graphics\deco\grass_6"),
-            "45":import_folder("Graphics\\deco\\rock"),
-            "46":import_folder("Graphics\\deco\\rock_2"),
-            "47":import_folder("Graphics\deco\\roof_grass"),
-            "48":import_folder("Graphics\deco\\roof_grass_2"),
-            "49":import_folder("Graphics\deco\\roof_grass_3"),
-            "50":import_folder("Graphics\\deco\\shroom"),
-            "51":import_folder("Graphics\deco\shroom")
+            "68":import_folder("graphics\\deco\\flower"),
+            "69":import_folder("graphics\\deco\\flower_2"),
+            "70":import_folder("graphics\\deco\\flower_3"),
+            "71":import_folder("graphics\\deco\\grass"),
+            "72":import_folder("graphics\\deco\\grass_2"),
+            "73":import_folder("graphics\\deco\\grass_3"),
+            "74":import_folder("graphics\\deco\\grass_4"),
+            "75":import_folder("graphics\\deco\\grass_5"),
+            "76":import_folder("graphics\\deco\\grass_6"),
+            "77":import_folder("graphics\\deco\\rock"),
+            "78":import_folder("graphics\\deco\\rock_2"),
+            "79":import_folder("graphics\\deco\\roof_grass"),
+            "80":import_folder("graphics\\deco\\roof_grass_2"),
+            "81":import_folder("graphics\deco\\roof_grass_3"),
+            "82":import_folder("graphics\\deco\\shroom"),
+            "83":import_folder("graphics\\deco\\shroom_2"),
+            "84":import_folder("graphics\\tileset\\floating_platform\\Full_platform"),
+            "85":import_folder("graphics\\tileset\\floating_platform\\Full_platform_2"),
+            "86":import_folder("graphics\\tileset\\floating_platform\\Full_platform_3"),
+            "87":import_folder("graphics\\tileset\\floating_platform\\platformend"),
+            "88":import_folder("graphics\\tileset\\floating_platform\\platformend_2"),
+            "90":import_folder("graphics\\tileset\\upside_down_2"),
+            "91":import_folder("graphics\\tileset\\upside_down_3"),
+            "92":import_folder("graphics\\tileset\\upside_down_trans"),
+            "93":import_folder("graphics\\tileset\\upside_down_trans_2"),
+            "94":import_folder("graphics\\spikes\\spikes_2_upsidedown"),
+            "95":import_folder("graphics\\spikes\\spikes_upsidedown"),
+            "96":import_folder("graphics\\tileset\\back"),
+            "97":import_folder("graphics\\door\\door")
         }
         #alters the hitbox size for specific tiles
         inflations = {
@@ -150,23 +163,35 @@ class Level():
             "34":(0,0),
             "34":(0,0),
             "35":(0,0),
-            "36":(0,0),
-            "37":(0,0),
-            "38":(0,0),
-            "39":(0,0),
-            "40":(0,0),
-            "41":(0,0),
-            "42":(0,0),
-            "43":(0,0),
-            "44":(0,0),
-            "45":(0,0),
-            "46":(0,0),
-            "47":(0,0),
-            "48":(0,0),
-            "49":(0,0),
-            "50":(0,0),
-            "51":(0,0)
-            
+            "68":(0,0),
+            "69":(0,0),
+            "70":(0,0),
+            "71":(0,0),
+            "72":(0,0),
+            "73":(0,0),
+            "74":(0,0),
+            "75":(0,0),
+            "76":(0,0),
+            "77":(0,0),
+            "78":(0,0),
+            "79":(0,0),
+            "80":(0,0),
+            "81":(0,0),
+            "82":(0,0),
+            "83":(0,0),
+            "84":(0,0),
+            "85":(0,0),
+            "86":(0,0),
+            "87":(0,0),
+            "88":(0,0),
+            "90":(0,0),
+            "91":(0,0),
+            "92":(0,0),
+            "93":(0,0),
+            "94":(0,0),
+            "95":(0,0),
+            "96":(0,0),
+            "97":(0,0)
         }
 
         if map == "Menu":   
@@ -203,7 +228,7 @@ class Level():
                         elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites],col,inflations.get(col),surf)
-                        elif col in ["36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51"]: #folliage
+                        elif col in ["68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83"]: #folliage
                             surf = graphics.get(col)
                             Tile.folliage((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.folliage],col,inflations.get(col),surf,self.player)
                         elif col in graphics:
