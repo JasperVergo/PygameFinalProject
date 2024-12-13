@@ -154,8 +154,8 @@ class Level():
             "25":(0,0),
             "26":(0,0),
             "27":(0,0),
-            "28":(0,0),
-            "29":(0,0),
+            "28":(-10,-20),
+            "29":(-10,-20),
             "30":(0,0),
             "31":(0,0),
             "32":(0,0),
@@ -188,20 +188,20 @@ class Level():
             "91":(0,0),
             "92":(0,0),
             "93":(0,0),
-            "94":(0,0),
-            "95":(0,0),
+            "94":(-10,-20),
+            "95":(-10,-20),
             "96":(0,0),
-            "97":(0,0)
+            "97":(0,30)
         }
 
         if map == "Menu":   
             Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_bg("graphics\screens\Start_screen"))
-            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT //1.8, "graphics\\buttons\\START", 1.9,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("testmap"))
+            Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT //1.8, "graphics\\buttons\\START", 1.9,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map2"))
             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 1.9,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
-        # elif map == "Restart_Menu":
-        #     Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Pause_screen",True))
-        #     Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map3"))
-        #     Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
+        elif map == "Restart_Menu":
+             Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Pause_screen",True))
+             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map2"))
+             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
         else:
             #goes through the rows and collums of a 2d list along with the index of each and checks what tile should be spawned along with 
             #calulating where it should be spawned based on the TILE_SIZE varible in Settings.py
@@ -222,23 +222,30 @@ class Level():
                             self.key_f = ui.Ui_element((TILE_SIZE * 3 + ui_padding * 5,ui_padding * 2 + TILE_SIZE),(TILE_SIZE,TILE_SIZE),import_folder("Graphics\\UI\\F"),[self.ui_elements])
                             self.dash_ui = ui.Dash_icon((DEFAULT_WIDTH - (TILE_SIZE + 20), DEFAULT_HIGHT - (TILE_SIZE + 20)),(TILE_SIZE,TILE_SIZE),[import_folder("Graphics\sphere\sphere_dash"),import_folder("Graphics\sphere\sphere")],import_folder("Graphics\sphere\sphere_dash"),[self.ui_elements])
                             self.player = Player(self.visible_Sprites,((col_Index * TILE_SIZE, row_Index * TILE_SIZE)),self.collition_Sprites,self.event_Sprites,col,self,self.folliage,self.dash_ui)
-                        elif col in EVENT_IDS:
+
+                        elif col in EVENT_IDS: # for sprites that trigger events 
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
-                        elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
+
+                        elif col in ["3","4","8","19","23","27","28","29","96"]: # sprites without collision
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites],col,inflations.get(col),surf)
+
                         elif col in ["68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83"]: #folliage
                             surf = graphics.get(col)
                             Tile.folliage((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.folliage],col,inflations.get(col),surf,self.player)
+
                         elif col in graphics:
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.collition_Sprites],col,inflations.get(col),surf)
+                            
                         elif col != "-1":
                             raise Exception(col)
+                        
+            self.player.event_sprites = self.event_Sprites
 
-            if self.player == None:
-                self.player = Player(self.visible_Sprites,((DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 2)),self.collition_Sprites)            
+
+          
             pygame.mixer.music.load("Audio\\mixkit-forest-birds-ambience-1210.wav") #audio from https://mixkit.co/free-sound-effects/ambience/
             pygame.mixer.music.set_volume(.2)
             pygame.mixer.music.play(-1,0,1000)
@@ -280,7 +287,7 @@ class Level():
         self.delete_Map()
         self.create_Map(self.current_map)
 
-    def close_game(self):
+    def close_game(self,close):
         """Closes the game"""
         pygame.event.post(pygame.QUIT)
 

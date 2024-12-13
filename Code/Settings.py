@@ -19,13 +19,17 @@ player_Base_Stats = {
 
 MAPS = {
     "testmap":["Maps\Objects_test_Background.csv","Maps\Objects_test_Objects.csv"],
-    "Map3":["Maps\Map3._Player.csv","Maps\Map3._Objects.csv","Maps\Map3._Tiles.csv"]
+    "Map3":["Maps\Map3._Player.csv","Maps\Map3._Objects.csv","Maps\Map3._Tiles.csv"],
+    "Map2":["Maps\Map2_back.csv","Maps\Map2_Player.csv","Maps\Map2_deco.csv","Maps\Map2_deco2.csv","Maps\Map2_deco3.csv","Maps\Map2_Tile_Layer_2.csv"]
 }
 
 EVENT_IDS ={
     "28": "restart",
-    "29": "restart"
-}
+    "29": "restart",
+    "95": "restart",
+    "94": "restart",
+    "97": "win"
+}   
 
 #temperary map for testing   
 MAP = [

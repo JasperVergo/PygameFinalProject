@@ -169,9 +169,12 @@ class Player(Enity):
         #event tiles
         for event in self.event_sprites:
             if self.hitbox.colliderect(event.hitbox):
+                print(event.id)
                 #triggers each event
                 if EVENT_IDS.get(event.id) == "restart":
                     self.level.create_Map("Restart_Menu")
+                elif EVENT_IDS.get(event.id) == "win":
+                    self.level.create_Map("Menu")
 
 
     def update(self):
