@@ -109,7 +109,6 @@ class Player(Enity):
             self.dash_timer = pygame.time.get_ticks()
             if self.control_direction.magnitude() > 0:
                 self.velocity = self.control_direction.normalize() * self.dashVelocity
-                print(self.velocity)
             else:
                 if self.flipped:
                     self.velocity.x = self.dashVelocity * -1 
@@ -169,7 +168,6 @@ class Player(Enity):
         #event tiles
         for event in self.event_sprites:
             if self.hitbox.colliderect(event.hitbox):
-                print(event.id)
                 #triggers each event
                 if EVENT_IDS.get(event.id) == "restart":
                     self.level.create_Map("Restart_Menu")
