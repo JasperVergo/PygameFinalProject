@@ -52,7 +52,7 @@ class Player(Enity):
         self.dashVelocity = player_Base_Stats["dashVelocity"]
         self.dash_timer = -1
         self.dash_UI = dashUI
-        self.dash_sound = pygame.mixer.Sound("Audio\mixkit-air-in-a-hit-2161.wav") # from https://mixkit.co/free-sound-effects/swish/
+        self.dash_sound = import_audio_file("Audio\mixkit-air-in-a-hit-2161.wav") # from https://mixkit.co/free-sound-effects/swish/
         self.dash_sound.set_volume(.3)
 
     def get_Current_State(self):
