@@ -18,6 +18,9 @@ class Player(Enity):
             "jump": import_folder("graphics\Player\jump_anim"),
             "side_dash" : import_folder("graphics\Player\side_dash_anim"),
             "up_dash" : import_folder("graphics\Player\\up_dash_anim"),
+            "upSide_dash": import_folder("Graphics\diagonal_up_dash"),
+            "downSide_dash": import_folder("Graphics\diagonal_down_dash"),
+            "down_dash" : import_folder("Graphics\down_dash"),
             "fall" : import_folder("graphics\Player\\fall_anim")
         }
         #sounds from https://freesound.org/search/?q=footstep&f=grouping_pack%3A%229344_Footsteps%22
@@ -80,8 +83,14 @@ class Player(Enity):
             self.status = "fall"
         
         if self.is_dashing:
-            if self.direction.x == 0:
+            if self.control_direction.x == 0 and self.control_direction.y == -1:
                 self.status = "up_dash"
+            elif self.control_direction.x != 0 and self.control_direction.y < 0:
+                self.status = "upSide_dash"
+            elif self.control_direction.x != 0 and self.control_direction.y > 0:
+                self.status = "downSide_dash"
+            elif self.control_direction.x == 0 and self.control_direction.y > 0:
+                self.status = "down_dash"
             else:
                 self.status = "side_dash"
 
@@ -98,7 +107,7 @@ class Player(Enity):
 
     def dash(self):
         if self.can_dash and not self.is_dashing:
-            print("dash")
+            print(self.direction)
             self.can_dash = False
             self.is_dashing = True
             self.is_gravity_active = False
@@ -109,7 +118,7 @@ class Player(Enity):
             self.dash_timer = pygame.time.get_ticks()
             if self.control_direction.magnitude() > 0:
                 self.velocity = self.control_direction.normalize() * self.dashVelocity
-                print(self.velocity)
+
             else:
                 if self.flipped:
                     self.velocity.x = self.dashVelocity * -1 
