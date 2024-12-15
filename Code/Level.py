@@ -46,6 +46,9 @@ class Level():
 
         self.player = None
 
+        pygame.mixer.music.load("Audio\\background_music1.mp3")
+        pygame.mixer.music.set_volume(.1)
+        pygame.mixer.music.play(-1,0,1000)
 
     
 
@@ -246,9 +249,10 @@ class Level():
 
 
           
-            pygame.mixer.music.load("Audio\\mixkit-forest-birds-ambience-1210.wav") #audio from https://mixkit.co/free-sound-effects/ambience/
-            pygame.mixer.music.set_volume(.2)
-            pygame.mixer.music.play(-1,0,1000)
+            self.background_sound = pygame.mixer.Sound("Audio\\mixkit-forest-birds-ambience-1210.wav") #audio from https://mixkit.co/free-sound-effects/ambience/
+            self.background_sound.set_volume(.2)
+            self.background_sound.play(-1)
+
     
     def update(self):
         """This is where all things that should be updated every frame """
