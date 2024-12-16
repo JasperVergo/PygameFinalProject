@@ -231,10 +231,11 @@ class Level():
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.event_Sprites],col,inflations.get(col),surf)
 
-                        elif col in ["3","4","8","19","23","27","28","29","96"]: # sprites without collision
+                        elif col in ["3","4","8","19","23","27","28","29"]: # sprites without collision
                             surf = graphics.get(col)
                             Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites],col,inflations.get(col),surf)
-
+                        elif col == "96":
+                            Tile.Tile((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE * 2), [self.visible_Sprites],col,inflations.get(col),surf)
                         elif col in ["68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83"]: #folliage
                             surf = graphics.get(col)
                             Tile.folliage((col_Index * TILE_SIZE),(row_Index * TILE_SIZE),(TILE_SIZE,TILE_SIZE), [self.visible_Sprites,self.folliage],col,inflations.get(col),surf,self.player)
