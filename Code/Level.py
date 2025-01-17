@@ -41,7 +41,7 @@ class Level():
 
         self.half_width = self.display_serfice.get_size()[0] // 2
         self.half_hight = self.display_serfice.get_size()[1] // 2
-        self.draw_offset = pygame.math.Vector2()
+        self.draw_offset = pygame.math.Vector2() #used for draw offset in custom draw 
         self.current_map = []
         self.is_Menu = False
 
@@ -59,7 +59,6 @@ class Level():
         """loads several maps from csv files and makes tile objects with them"""
         self.current_map = map
         #graphics holds the pygame surfaces for each sprite Tile
-        #TODO: fix this so the hitboxes are right
         graphics = {           
             "rock":import_folder("Graphics\Test"),
             "1":import_folder("graphics\\tileset\\floating_platform\\platform_2"),
@@ -198,11 +197,13 @@ class Level():
             "97":(0,30)
         }
 
-        if map == "Menu":   
+        if map == "Menu":  
+            """main menu that is launched when the game opens""" 
             Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_bg("graphics\screens\Start_screen"))
             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT //1.8, "graphics\\buttons\\START", 1.9,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map2"))
             Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 1.9,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
         elif map == "Restart_Menu":
+             """menu that opens when you die"""
              Tile.Tile(0,0,(DEFAULT_WIDTH,DEFAULT_HIGHT),[self.visible_Sprites],-1,(0,0),import_folder("graphics\screens\Pause_screen",True))
              Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.9, "graphics\\buttons\\START", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.create_Map,MAPS.get("Map2"))
              Button.Button(DEFAULT_WIDTH // 2, DEFAULT_HIGHT // 1.5, "graphics\\buttons\\Quit", 3,self.display_serfice,[self.ui_elements,self.visible_Sprites],self.close_game,None)
@@ -258,7 +259,7 @@ class Level():
     def update(self):
         """This is where all things that should be updated every frame """
         self.display_serfice.fill("black") #fills the screen with black to reset the sreen every frame 
-        if self.current_map not in ["Restart_Menu","Menu"]:
+        if self.current_map not in ["Restart_Menu","Menu"]: #some things aren't spawn 
             self.custom_draw()
             self.player.update()
             self.ui_elements.draw(self.display_serfice)

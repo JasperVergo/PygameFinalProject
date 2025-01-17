@@ -122,6 +122,8 @@ class Enity(pygame.sprite.Sprite):
                     collided_sprites.append(sprite)
         return collided_sprites
 
+    """varius checks for collition on different points of the enity"""
+
     def check_Left_collition(self,sprite):
         return sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.left-self.collition_tolorance)
     
@@ -147,6 +149,7 @@ class Enity(pygame.sprite.Sprite):
         return sprite.hitbox.collidepoint(self.hitbox.bottomright)
     
     def collide_folliage(self):
+        """used for the collition of folliage sprites and allows the jiggle"""
         for sprite in self.folliage_sprites:
             if self.hitbox.colliderect(sprite.hitbox):
                 sprite.jiggle()
@@ -167,10 +170,12 @@ class Enity(pygame.sprite.Sprite):
     def is_falling(self):
         """returns true if the player is falling"""
         for sprite in self.collition_Sprites:
+            #checks if the area directly under the player is a collition sprites
             if sprite.hitbox.collidepoint(self.hitbox.centerx,self.hitbox.bottom+self.collition_tolorance + 1) or sprite.hitbox.collidepoint(self.hitbox.bottomleft[0],self.hitbox.bottomleft[1] + 1) or sprite.hitbox.collidepoint(self.hitbox.bottomright[0],self.hitbox.bottomright[1] + 1):
                  self.on_Ground_hit()
                  return False
         return True    
 
     def on_Ground_hit(self):
+        """for every time the player hits the ground"""
         return 0        

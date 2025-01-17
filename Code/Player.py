@@ -76,6 +76,7 @@ class Player(Enity):
 
         if self.is_jumping:
             self.status = "jump"
+
         if not self.is_falling():
             self.is_jumping = False
         
@@ -116,14 +117,15 @@ class Player(Enity):
             else:
                 self.direction.x = -1 if self.flipped else 1
             self.dash_timer = pygame.time.get_ticks()
+
             if self.control_direction.magnitude() > 0:
                 self.velocity = self.control_direction.normalize() * self.dashVelocity
-
             else:
                 if self.flipped:
                     self.velocity.x = self.dashVelocity * -1 
                 else: 
                     self.velocity.x = self.dashVelocity 
+
             self.dash_sound.play()
             
                 

@@ -8,7 +8,6 @@ class Button(pygame.sprite.Sprite):
         image = pygame.image.load(osPath.join(*(filepath + ".png").split("\\"))).convert_alpha()
         width = image.get_width()
         height = image.get_height()
-        # self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
         self.image = self.aspect_scale(image, (width * scale, height * scale))
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
